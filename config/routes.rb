@@ -1,7 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :notices, :as => 'notes'
   map.resources :sessions
-  map.resources :user
+  map.resources :user, :member => { :confirm_email => :get }
 
   # The priority is based upon order of creation: first created -> highest priority.
 

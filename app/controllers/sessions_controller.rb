@@ -9,8 +9,14 @@ class SessionsController < ApplicationController
   def create
     @user = User.first(:conditions => [ "email like ?", params[:user][:email]])
     if @user && @user.authenticate(params[:user][:password])
-      session[:user_id] = @user.id
-      redirect_to notices_path, :notice => 'Logged in'
+      if @user.email_confirmed
+        session[:user_id] = @user.id
+        redirect_to notices_path, :notice => 'Logged in'
+      else
+        flash.now[:alert] = 'Please activate your account by following the 
+                             instructions in the account confirmation email you received to proceed'
+        render :action => 'new'
+      end
     else
       flash.now[:alert] = 'Username or password is invalid. Please try again'
       render :action => 'new', :status => :not_found

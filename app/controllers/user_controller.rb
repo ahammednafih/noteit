@@ -1,5 +1,5 @@
 class UserController < ApplicationController
-  skip_before_filter :authorized, :only => [:new, :create]
+  skip_before_filter :authorized, :only => [:new, :create, :confirm_email]
 
   # SignUp form
   def new
@@ -11,10 +11,23 @@ class UserController < ApplicationController
     @user = User.new(:name => params[:user][:name], :email => params[:user][:email],
                      :password => params[:user][:password])
     if @user.save
-      session[:user_id] = @user.id
-      redirect_to notices_path
+      UserMailer.deliver_registration_confirmation(@user)
+      flash[:alert] = "Please confirm your email address to continue"
+      redirect_to login_url
     else
       render :action => 'new'
+    end
+  end
+
+  def confirm_email
+    user = User.first(:conditions => [ "confirm_token like ?", params[:id]])
+    if user
+      user.email_activate
+      flash[:alert] = "Welcome! Your email has been confirmed.Please sign in to continue."
+      redirect_to login_url
+    else
+      flash[:alert] = "Sorry. User does not exist"
+      redirect_to login_url
     end
   end
 
