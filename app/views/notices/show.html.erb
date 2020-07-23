@@ -1,0 +1,17 @@
+<div class="card">
+    <div class="container-form">
+        <p>
+            <b>Title:</b>
+            <%=h @notice.title %>
+        </p>
+
+        <p>
+            <b>Content:</b>
+            <%=h @notice.content %>
+        </p>
+
+
+        <%= link_to 'Edit', edit_notice_path(@notice) %> |
+        <%= link_to 'Back', notices_path %>
+    </div>
+</div>

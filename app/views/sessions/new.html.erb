@@ -1,0 +1,19 @@
+<%= stylesheet_link_tag 'sessions' %>
+<% form_for :user, :url => { :action => 'create' } do |form| %>
+<h3 class="text-center">Sign In</h3>
+<div class="form-group">
+    <%= form.label :email %>
+    <%= form.text_field :email, :id => 'email', :class => 'form-control', :placeholder => 'Enter email', 
+                        :required => true, :autofocus => true, :pattern => '[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$' %>
+</div>
+<div class="form-group">
+    <%= form.label :password%>
+    <%= form.password_field :password, :id => 'password', :class => 'form-control', :placeholder => 'Password', 
+                            :required => true%>
+    <%= link_to 'Forgot Password' %>
+</div>
+<div>
+    <%= form.submit 'Login', :class => 'btn' %>
+    <small>Don't have an account? <%= link_to 'Sign Up', signup_path%></small>
+</div>
+<% end %>

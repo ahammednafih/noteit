@@ -1,0 +1,15 @@
+<% form_for(@notice) do |f| %>
+  <%= f.error_messages %>
+
+  <div class="form-group">
+    <%= f.label :title%>
+    <%= f.text_field :title, :class => 'form-control', :placeholder => 'Name', :required => true %>
+  </div>
+  <div class="form-group">
+    <%= f.label :content %><br />
+    <%= f.text_area :content, :class => 'form-control', :placeholder => 'Notice', :required => true %>
+  </div>
+  <div class="text-center actions">
+    <%= f.submit 'Save', :class => 'btn btn-primary'%>
+  </div>
+<% end %>
