@@ -8,10 +8,10 @@ class UserController < ApplicationController
 
   # SignUp - Create User
   def create
-    @user = User.new(:name => params[:user][:name], :email => params[:user][:email],
-                     :password => params[:user][:password],:password_confirmation => params[:user][:password_confirmation])
+    @user = User.new(:name => params[:user][:name], :email => params[:user][:email], :password => params[:user][:password], 
+                     :password_confirmation => params[:user][:password_confirmation])
     if @user.save
-      UserMailer.deliver_registration_confirmation(@user)
+      UserMailer.delay.deliver_registration_confirmation(@user)
       flash[:alert] = "Please confirm your email address to continue"
       redirect_to login_url
     else

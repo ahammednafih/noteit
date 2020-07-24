@@ -10,7 +10,7 @@ class UserMailer < ActionMailer::Base
     def forgot_password(user)
         recipients    user.email
         from          "Note It Admin"
-        subject       "Please complete the registration"
+        subject       "Reset password"
         sent_on       Time.now
         body          :user => user
     end
