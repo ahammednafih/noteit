@@ -1,9 +1,10 @@
 class NoticesController < ApplicationController
-
+  skip_before_filter :authorized, :only => [:public_notes]
+  before_filter :check_user, :except => [:public_notes]
   # GET /notices
   # GET /notices.xml
   def index
-    @notices = Notice.all
+    @notices = @user.notices
 
     respond_to do |format|
       format.html # index.html.erb
@@ -14,18 +15,23 @@ class NoticesController < ApplicationController
   # GET /notices/1
   # GET /notices/1.xml
   def show
-    @notice = Notice.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @notice }
+    @notice = @user.notices.find(params[:id])
+    if @notice
+      respond_to do |format|
+        format.html # show.html.erb
+        format.xml  { render :xml => @notice }
+      end
+    else
+      flash[:notice] = 'No notes found.'
+      format.html { render :action => "index" }
+      format.xml  { render :xml => @notice.errors, :status => :not_found }
     end
   end
 
   # GET /notices/new
   # GET /notices/new.xml
   def new
-    @notice = Notice.new
+    @notice = @user.notices.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -35,17 +41,17 @@ class NoticesController < ApplicationController
 
   # GET /notices/1/edit
   def edit
-    @notice = Notice.find(params[:id])
+    @notice = @user.notices.find(params[:id])
   end
 
   # POST /notices
   # POST /notices.xml
   def create
-    @notice = Notice.new(params[:notice])
-
+    @notice = @user.notices.new(params[:notice])
+    @notice.user_id = session[:user_id]
     respond_to do |format|
       if @notice.save
-        flash[:notice] = 'Notice was successfully created.'
+        flash[:notice] = 'Note was successfully created.'
         format.html { redirect_to(@notice) }
         format.xml  { render :xml => @notice, :status => :created, :location => @notice }
       else
@@ -58,11 +64,11 @@ class NoticesController < ApplicationController
   # PUT /notices/1
   # PUT /notices/1.xml
   def update
-    @notice = Notice.find(params[:id])
+    @notice = @user.notices.find(params[:id])
 
     respond_to do |format|
       if @notice.update_attributes(params[:notice])
-        flash[:notice] = 'Notice was successfully updated.'
+        flash[:notice] = 'Note was successfully updated.'
         format.html { redirect_to(@notice) }
         format.xml  { head :ok }
       else
@@ -75,12 +81,30 @@ class NoticesController < ApplicationController
   # DELETE /notices/1
   # DELETE /notices/1.xml
   def destroy
-    @notice = Notice.find(params[:id])
+    @notice = @user.notices.find(params[:id])
     @notice.destroy
 
     respond_to do |format|
       format.html { redirect_to(notices_url) }
       format.xml  { head :ok }
     end
+  end
+
+  def public_notes
+    @notice = Notice.first(:conditions => [ "public_token like ?", params[:id]])
+    if @notice
+      respond_to do |format|
+        format.html # public_notes.html.erb
+        format.xml  { render :xml => @notice }
+      end
+    else
+      flash[:notice] = 'No notes found'
+      redirect_to login_path, :status => 404
+    end
+  end
+
+  private
+  def check_user
+    @user = User.find(session[:user_id])
   end
 end

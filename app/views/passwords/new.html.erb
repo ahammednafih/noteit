@@ -1,0 +1,13 @@
+<%= stylesheet_link_tag 'sessions' %>
+<% form_tag passwords_path, :method => :post do %>
+<h3 class="text-center">Reset Password</h3>
+  <div class='field'>
+    <%= label_tag :email %>
+    <%= text_field_tag :email, params[:email], :class => 'form-control', :placeholder => 'Enter email', 
+                       :required => true, :autofocus => true, :pattern => '[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$' %>
+  </div>
+    <div>
+    <%= submit_tag "Reset Password", :class => "btn" %>
+    <%= link_to "Login", login_path%>
+  </div>
+<% end %>

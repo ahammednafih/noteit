@@ -1,28 +1,22 @@
 <div class="container">
-    <h1 class="text-center">Listing notices</h1>
-
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>Content</th>
-                <th colspan="3"></th>
-            </tr>
-        </thead>
-        </tbody>
+    <h2 class="text-center">Listing notices</h2>
+    <div class="row ">
         <% @notices.each do |notice| %>
-        <tr>
-            <td><%=h notice.title %></td>
-            <td><%=h notice.content %></td>
-            <td><%= link_to 'Show', notice %></td>
-            <td><%= link_to 'Edit', edit_notice_path(notice) %></td>
-            <td><%= link_to 'Destroy', notice, :confirm => 'Are you sure?', :method => :delete %></td>
-        </tr>
-        <% end %>
-        </tbody>
-    </table>
+        <div class="col-sm-4" style="margin-top: 20px">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"><%=h notice.title %></h5>
+                    <p class="card-text mx-auto text-truncate"><%=h notice.content %></p>
+                    <%= link_to 'Show', notice, :class => 'card-link fa fa-eye' %>
+                    <%= link_to 'Edit', edit_notice_path(notice), :class => 'card-link fa fa-pencil' %>
+                    <%= link_to 'Destroy', notice, :confirm => 'Are you sure?', :method => :delete, 
+                                :class => 'card-link fa fa-trash-o' %>
+                </div>
+            </div>
+        </div>
 
-    <br />
+        <% end %>
+    </div>
 
     <%= link_to 'New notice', new_notice_path %>
 </div>

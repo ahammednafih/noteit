@@ -1,17 +1,18 @@
-<div class="card">
-    <div class="container-form">
-        <p>
-            <b>Title:</b>
+
+        <h3>
             <%=h @notice.title %>
-        </p>
+        </h3>
 
         <p>
-            <b>Content:</b>
             <%=h @notice.content %>
         </p>
-
+        <% if @notice.public %>
+            <div>
+                <b>Public URL:</b>
+                <%=link_to public_notes_notice_url(@notice.public_token) %>
+            </div>
+        <% end %>
 
         <%= link_to 'Edit', edit_notice_path(@notice) %> |
         <%= link_to 'Back', notices_path %>
-    </div>
-</div>
+

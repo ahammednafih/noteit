@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20200723110926) do
+ActiveRecord::Schema.define(:version => 20200723092640) do
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -29,6 +29,9 @@ ActiveRecord::Schema.define(:version => 20200723110926) do
   create_table "notices", :force => true do |t|
     t.string   "title"
     t.text     "content"
+    t.integer  "user_id"
+    t.boolean  "public",       :default => false
+    t.string   "public_token"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -37,10 +40,12 @@ ActiveRecord::Schema.define(:version => 20200723110926) do
     t.string   "name"
     t.string   "email"
     t.string   "password_digest"
+    t.boolean  "email_confirmed",        :default => false
+    t.string   "confirm_token"
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "email_confirmed", :default => false
-    t.string   "confirm_token"
   end
 
 end

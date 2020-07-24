@@ -17,6 +17,12 @@
     <%= form.password_field :password, :id => 'password', :class => 'form-control', :placeholder => 'Password', 
                             :required => true%>
 </div>
+<div class="form-group">
+    <%= form.label :confirm_password%>
+    <%= form.password_field :password_confirmation, :id => 'password_confirmation', :class => 'form-control', 
+                            :placeholder => 'Password', :required => true%>
+</div>
+
 <div>
     <%= form.submit 'Register', :class => 'btn' %>
     <small>Already have an account? <%= link_to 'Sign In', login_path%></small>
