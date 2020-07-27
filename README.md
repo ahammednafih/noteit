@@ -1,6 +1,6 @@
 # Note It
 
-A simple note taking app using Rails and twitter bootstrap
+A simple note taking app using Rails and twitter bootstrap. Db used is mariaDB 10.1
 
 ## Setup
 
@@ -42,11 +42,14 @@ rake (0.8.7)
 
 delayed_job 2.0.4 as plugin: `script/plugin install git://github.com/collectiveidea/delayed_job.git -r v2.0`
  
- Now from project directory
+`script/generate delayed_job`
 
 `rake db:create`
 
 `rake db:migrate`
+
+Start delayed_job: `script/delayed_job start`
+
 
 ## Assignment tasks
 
