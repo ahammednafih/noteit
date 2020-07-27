@@ -14,8 +14,9 @@ class User < ActiveRecord::Base
   validates_confirmation_of :password
   validates_presence_of :password_digest
 
-  def password
-    @password
+  attr_reader :password, :password_confirmation
+  def password_confirmation=(plaintxt_pass)
+    self.password_digest = BCrypt::Password.create(plaintxt_pass)
   end
 
   def password=(plaintxt_pass)
@@ -37,7 +38,7 @@ class User < ActiveRecord::Base
     generate_token(:reset_password_token)
     self.reset_password_sent_at = Time.zone.now
     save!
-    UserMailer.deliver_forgot_password(self)# This sends an e-mail with a link for the user to reset the password
+    UserMailer.delay.deliver_forgot_password(self)# This sends an e-mail with a link for the user to reset the password
   end
   # This generates a random password reset token for the user
   def generate_token(column)

@@ -5,7 +5,7 @@ ActionController::Routing::Routes.draw do |map|
   map.signup '/signup', :controller => 'user', :action => 'new'
   map.logout '/logout', :controller => 'sessions', :action => 'destroy'
   # See how all your routes lay out with "rake routes"
-
+  
   map.resources :notices, :member => { :public_notes => :get }, :as => 'notes'
   map.resources :sessions
   map.resources :user, :member => { :confirm_email => :get }
@@ -47,5 +47,5 @@ ActionController::Routing::Routes.draw do |map|
   # Note: These default routes make all actions in every controller accessible via GET requests. You should
   # consider removing or commenting them out if you're using named routes and resources.
   map.connect ':controller/:action/:id'
-  map.connect ':controller/:action/:id:format'
+  map.connect ':controller/:action/:id.:format'
 end
