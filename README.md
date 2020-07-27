@@ -8,22 +8,37 @@ Ruby version : 1.8.7p-374
 
 Gem version :
 
-actionmailer (2.3.5)
-actionpack (2.3.5)
-activerecord (2.3.5)
-activeresource (2.3.5)
-activesupport (2.3.5)
-bcrypt (3.1.11)
-bundler-unload (1.0.2)
-daemons (1.0.10)
-executable-hooks (1.6.0)
-gem-wrappers (1.4.0)
-mysql (2.9.1)
-popper_js (1.16.0)
-rack (1.0.1)
+rubygems-update (1.4.2)
+
 rails (2.3.5)
-rake (0.8.7)
-rubygems-update (1.4.2) 
+
+actionmailer (2.3.5)
+
+actionpack (2.3.5)
+
+activerecord (2.3.5)
+
+activeresource (2.3.5)
+
+activesupport (2.3.5)
+
+bcrypt (3.1.11)
+
+bundler-unload (1.0.2)
+
+daemons (1.0.10)
+
+executable-hooks (1.6.0)
+
+gem-wrappers (1.4.0)
+
+mysql (2.9.1)
+
+popper_js (1.16.0)
+
+rack (1.0.1)
+
+rake (0.8.7) 
 
 delayed_job 2.0.4 as plugin: script/plugin install git://github.com/collectiveidea/delayed_job.git -r v2.0
  
