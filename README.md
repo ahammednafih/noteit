@@ -4,7 +4,7 @@ A simple note taking app using Rails and twitter bootstrap
 
 ## Setup
 
-Ruby version : 1.8.7p-374
+Ruby version : `1.8.7p-374`
 
 Gem version :
 
@@ -40,7 +40,7 @@ rack (1.0.1)
 
 rake (0.8.7) 
 
-delayed_job 2.0.4 as plugin: script/plugin install git://github.com/collectiveidea/delayed_job.git -r v2.0
+delayed_job 2.0.4 as plugin: `script/plugin install git://github.com/collectiveidea/delayed_job.git -r v2.0`
  
  Now from project directory
 
