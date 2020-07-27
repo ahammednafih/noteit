@@ -1,5 +1,6 @@
 class Notice < ActiveRecord::Base
   before_create :generate_public_token
+  before_update :generate_public_token
 
   belongs_to :user
 

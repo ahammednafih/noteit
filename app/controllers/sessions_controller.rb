@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
     if @user && @user.authenticate(params[:user][:password])
       if @user.email_confirmed
         session[:user_id] = @user.id
-        redirect_to notices_path, :notice => 'Logged in'
+        redirect_to notices_path, :alert => 'Logged in'
       else
         flash.now[:alert] = 'Please activate your account by following the 
                              instructions in the account confirmation email you received to proceed'

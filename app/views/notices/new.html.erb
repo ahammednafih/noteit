@@ -1,5 +1,5 @@
-<h1>New notice</h1>
-
+<h2 class="text-center">New notice</h2>
+<button class="new-notice btn btn-dark">
+    <%= link_to '', notices_path, :class => 'fa fa-hand-o-left', :style => 'color: white;' %>
+</button>
 <%= render :partial => "form" %>
-
-<%= link_to 'Back', notices_path %>

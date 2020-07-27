@@ -1,17 +1,32 @@
+<div class="card" style="margin: 10px 0 10px 0; padding: 20px;">
 <% form_for(@notice) do |f| %>
-  <%= f.error_messages %>
+<%= f.error_messages %>
 
-  <div class="form-group">
+<div class="form-group">
     <%= f.label :title%>
     <%= f.text_field :title, :class => 'form-control', :placeholder => 'Name', :required => true %>
-  </div>
-  <div class="form-group">
+</div>
+<div class="form-group">
     <%= f.label :content %>
-    <%= f.text_area :content, :class => 'form-control', :placeholder => 'Notice', :required => true %>
-    <%= f.label :public %>
-    <%= f.check_box :public, :checked => false %>
-  </div>
-  <div class="text-center actions">
-    <%= f.submit 'Save', :class => 'btn btn-primary'%>
-  </div>
+    <%= f.hidden_field :content, :cols => '80', :rows => '20', :id => 'content', :class => 'form-control', :placeholder => 'Notice', :required => true %>
+    <trix-editor input="content"></trix-editor>
+</div>
+<div class="form-check">
+    <%= f.check_box :public, :class=> 'form-check-input', :id => 'publicCheck'%>
+    <label class="form-check-label" for="publicCheck">Make this public</label>
+</div>
+<div class="text-center actions">
+    <%= f.submit 'Save', :class => 'btn btn-dark'%>
+</div>
 <% end %>
+</div>
+<style>
+    .trix-button--icon-attach {
+        display: none;
+    }
+</style>
+<script type="text/javascript">
+    document.addEventListener("trix-file-accept", event => {
+        event.preventDefault()
+    })
+</script>

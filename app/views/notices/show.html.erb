@@ -1,18 +1,22 @@
-
-        <h3>
-            <%=h @notice.title %>
-        </h3>
-
-        <p>
-            <%=h @notice.content %>
-        </p>
-        <% if @notice.public %>
-            <div>
-                <b>Public URL:</b>
-                <%=link_to public_notes_notice_url(@notice.public_token) %>
-            </div>
-        <% end %>
-
-        <%= link_to 'Edit', edit_notice_path(@notice) %> |
-        <%= link_to 'Back', notices_path %>
-
+<div class="card" style="margin: 10px; padding: 20px;">
+    <h3 style="border-bottom: 1px solid #ccc; padding: 0 10px 10px; margin: 0 10px 10px;">
+        <%=h @notice.title %>
+    </h3>
+<div style="margin: 0 10px 10px; padding: 0 10px 10px;">
+    <p>
+        <%= sanitize @notice.content %>
+    </p>
+    <% if @notice.public %>
+    <div class="text-center" style="border: 1px solid #ccc; border-radius: 25px; padding:10px;">
+        <b>Public URL:</b>
+        <%= public_notes_notice_url(@notice.public_token) %>
+    </div>
+    <% end %>
+    </div class="row">
+    <div class="text-center" style="border-top: 1px solid #ccc; padding: 10 10px 0; margin: 10 10px 0;">
+        <button class="btn btn-dark" style="margin: 20px 10px 0px; padding: 10px;"><%= link_to '', edit_notice_path(@notice), :class =>'fa fa-pencil', :style => 'color: white;' %> </button>
+        <button class="btn btn-dark" style="margin: 20px 10px 0px; padding: 10px;"> <%= link_to '', notices_path, :class =>'fa  fa-hand-o-left', :style => 'color: white;' %></button>
+        <button class="btn btn-dark" style="margin: 20px 10px 0px; padding: 10px;"> <%= link_to '', @notice, :confirm => 'Are you sure?', :method => :delete, 
+                                :class => 'card-link fa fa-trash-o', :style => 'color: white;' %></button>
+    </div>
+</div>

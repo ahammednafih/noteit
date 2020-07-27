@@ -6,39 +6,42 @@
     <title>NoteIt</title>
     <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
     <title>Notices: <%= controller.action_name %></title>
+    <%= stylesheet_link_tag 'application' %>
     <%= stylesheet_link_tag 'scaffold' %>
     <%= stylesheet_link_tag 'bootstrap' %>
+    <%= stylesheet_link_tag 'trix' %>
     <%= stylesheet_link_tag 'bootstrap.min' %>
     <%= javascript_include_tag 'bootstrap' %>
     <%= javascript_include_tag 'bootstrap.min' %>
+    <%= javascript_include_tag 'trix' %>
     <script src="https://use.fontawesome.com/8ab6cd1b8e.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Recursive&display=swap" rel="stylesheet">
+
 </head>
 
-<body>
-    <% if logged_in? %>
+<body style="background-color: #008080;">
     <%= render 'layouts/nav_bar' %>
-    <% end %>
     <% if flash[:notice] %>
     <p id="notice" class="text-center notice notice-success is-dismissable fade show"><%= flash[:notice] %></p>
     <% elsif flash[:alert]%>
     <div class="text-center alert alert-warning alert-dismissable fade show" role="alert">
         <strong><%= flash[:alert] %></strong>
-        <button type="button" class="close" data-dismiss="alert" aria-label="close">
+        <span type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
-        </button>
+        </span>
     </div>
     <% end %>
-    <div class="container my-3">
+    <div class="container my-3" >
         <%= yield %>
     </div>
     <% unless flash[:alert] %>
     <script type="text/javascript">
-        $('.alert').alert('close')
+        $('.alert').alert('close');
     </script>
     <% end %>
     <% unless flash[:notice] %>
     <script type="text/javascript">
-        $('.notice').alert('close')
+        $('.notice').alert('close');
     </script>
     <% end %>
 </body>
