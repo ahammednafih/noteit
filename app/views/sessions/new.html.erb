@@ -10,7 +10,7 @@
     <%= form.label :password%>
     <%= form.password_field :password, :id => 'password', :class => 'form-control', :placeholder => 'Password', 
                             :required => true%>
-    <%= link_to 'Forgot Password' %>
+    <%= link_to 'Forgot password?', new_password_path %>
 </div>
 <div>
     <%= form.submit 'Login', :class => 'btn' %>

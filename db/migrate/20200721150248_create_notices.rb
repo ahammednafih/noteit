@@ -3,6 +3,9 @@ class CreateNotices < ActiveRecord::Migration
     create_table :notices do |t|
       t.string :title
       t.text :content
+      t.integer :user_id
+      t.boolean :public, :default => false
+      t.string :public_token
 
       t.timestamps
     end
