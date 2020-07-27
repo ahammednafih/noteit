@@ -3,11 +3,14 @@
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav navbar-right">
+        <ul class="navbar-nav navbar-auto">
             <li class="nav-item">
-                <%= link_to 'Log out', logout_path, :class => 'nav-link', :data => { :confirm => 'Are you sure you want to logout?' } %>
+                <% if logged_in? %>
+                <%= link_to 'Log out', logout_path, :class => 'nav-link fa fa-sign-out', :data => { :confirm => 'Are you sure you want to logout?' } %>
+                <% else %>
+                <%= link_to 'Login', login_path, :class => 'nav-link fa fa-sign-in' %>
+                <% end %>
             </li>
         </ul>
     </div>

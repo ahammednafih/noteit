@@ -6,8 +6,8 @@
     <%= text_field_tag :email, params[:email], :class => 'form-control', :placeholder => 'Enter email', 
                        :required => true, :autofocus => true, :pattern => '[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$' %>
   </div>
-    <div>
-    <%= submit_tag "Reset Password", :class => "btn" %>
-    <%= link_to "Login", login_path%>
+    <div id="button-row">
+    <%= submit_tag "Reset Password", :class => "btn btn-dark", :style => 'margin-right:10px;' %>
+    <%= link_to "Sign In", login_path, :class => "btn btn-dark", :style => 'margin-left: 10px; color: white;'%>
   </div>
 <% end %>

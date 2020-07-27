@@ -1,7 +1,8 @@
-<div class="container-form">
-    <h1 class="text-center">Editing notice</h1>
+    <h2 class="text-center">Editing notice</h2>
+    <button class="new-notice btn btn-dark">
+        <%= link_to '', @notice, :class => 'fa fa-eye', :style => 'color: white;' %>
+    </button>
+    <button class="new-notice btn btn-dark">
+        <%= link_to '', notices_path, :class => 'fa fa-hand-o-left', :style => 'color: white;' %>
+    </button>
     <%= render :partial => "form" %>
-
-    <%= link_to 'Show', @notice %> |
-    <%= link_to 'Back', notices_path %>
-</div>

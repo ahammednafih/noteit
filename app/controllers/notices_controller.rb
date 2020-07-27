@@ -91,14 +91,14 @@ class NoticesController < ApplicationController
   end
 
   def public_notes
-    @notice = Notice.first(:conditions => [ "public_token like ?", params[:id]])
+    @notice = Notice.find_by_public_token(params[:id])
     if @notice
       respond_to do |format|
         format.html # public_notes.html.erb
         format.xml  { render :xml => @notice }
       end
     else
-      flash[:notice] = 'No notes found'
+      flash[:alert] = 'No notes found'
       redirect_to login_path, :status => 404
     end
   end
