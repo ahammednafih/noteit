@@ -11,10 +11,18 @@ class SessionsController < ApplicationController
     if @user && @user.authenticate(params[:user][:password])
       if @user.email_confirmed
         session[:user_id] = @user.id
-        redirect_to notices_path, :alert => 'Logged in'
+        if @user.last_login_at.nil?
+          flash[:alert] = 'Welcome. Please consider completing your profile'
+          @user.update_attributes(:last_login_at => Time.now)
+          redirect_to edit_user_path(@user) 
+        else
+          @user.update_attributes(:last_login_at => Time.now)
+          redirect_to notices_path, :alert => 'Logged in'
+        end
       else
         flash.now[:alert] = 'Please activate your account by following the 
-                             instructions in the account confirmation email you received to proceed'
+                             instructions in the account confirmation email 
+                             you received to proceed'
         render :action => 'new'
       end
     else
@@ -25,7 +33,7 @@ class SessionsController < ApplicationController
 
   def destroy
     session[:user_id] = nil
-    redirect_to login_path, :alert => 'Logged out'
+    redirect_to public_notes_path, :alert => 'Logged out'
   end
 
   def login; end

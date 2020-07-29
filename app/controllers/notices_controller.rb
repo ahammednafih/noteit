@@ -1,10 +1,9 @@
 class NoticesController < ApplicationController
-  skip_before_filter :authorized, :only => [:public_notes]
-  before_filter :check_user, :except => [:public_notes]
+  before_filter :check_user
   # GET /notices
   # GET /notices.xml
   def index
-    @notices = @user.notices
+    @notices = @user.notices.paginate(:page => params[:page], :per_page => 10)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -53,10 +52,12 @@ class NoticesController < ApplicationController
       if @notice.save
         flash[:notice] = 'Note was successfully created.'
         format.html { redirect_to(@notice) }
-        format.xml  { render :xml => @notice, :status => :created, :location => @notice }
+        format.xml  { render :xml => @notice, :status => :created, 
+                             :location => @notice }
       else
         format.html { render :action => "new" }
-        format.xml  { render :xml => @notice.errors, :status => :unprocessable_entity }
+        format.xml  { render :xml => @notice.errors, 
+                             :status => :unprocessable_entity }
       end
     end
   end
@@ -73,7 +74,8 @@ class NoticesController < ApplicationController
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @notice.errors, :status => :unprocessable_entity }
+        format.xml  { render :xml => @notice.errors, 
+                             :status => :unprocessable_entity }
       end
     end
   end
@@ -90,16 +92,12 @@ class NoticesController < ApplicationController
     end
   end
 
-  def public_notes
-    @notice = Notice.find_by_public_token(params[:id])
-    if @notice
-      respond_to do |format|
-        format.html # public_notes.html.erb
-        format.xml  { render :xml => @notice }
-      end
-    else
-      flash[:alert] = 'No notes found'
-      redirect_to login_path, :status => 404
+  def my_public_notes
+    @notices = @user.notices.all(:conditions => ["public like ?", true]).paginate(:page => params[:page], :per_page => 10)
+    puts("\n==========#{@notices}===========\n")
+    respond_to do |format|
+      format.html # my_public_notes.html.erb
+      format.xml  { render :xml => @notices }
     end
   end
 

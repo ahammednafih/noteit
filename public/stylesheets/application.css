@@ -1,3 +1,44 @@
 html * { 
     font-family: 'Recursive', sans-serif;
 }
+
+.trix-button--icon-attach {
+    display: none;
+}
+
+.main-body {
+    background-color: #008080;
+}
+
+.fieldWithErrors {
+    padding: 2px;
+    background-color: #ccc;
+    display: table;
+  }
+
+.errorExplanation {
+    border-radius: 10px;
+    border: 3px solid #ccc;
+    padding: 10px;
+    margin: 10px 0 20px;
+}
+
+.errorExplanation h2 {
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.errorExplanation p {
+  margin: 10 0 10px;
+  padding: 10px;
+  font-size: 13px;
+}
+
+.errorExplanation ul li {
+    font-size: 13px;
+    list-style: square;
+}

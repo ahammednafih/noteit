@@ -1,3 +1,4 @@
+module Mailers
 class UserMailer < ActionMailer::Base
     def registration_confirmation(user)
         recipients    user.email
@@ -14,4 +15,5 @@ class UserMailer < ActionMailer::Base
         sent_on       Time.now
         body          :user => user
     end
+end
 end

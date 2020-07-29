@@ -3,11 +3,11 @@
 <h3 class="text-center">Reset Password</h3>
   <div class='field'>
     <%= label_tag :email %>
-    <%= text_field_tag :email, params[:email], :class => 'form-control', :placeholder => 'Enter email', 
+    <%= text_field_tag :email, params[:email], :class => 'form-control form-control1 input1', :placeholder => 'Enter email', 
                        :required => true, :autofocus => true, :pattern => '[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$' %>
   </div>
     <div id="button-row">
-    <%= submit_tag "Reset Password", :class => "btn btn-dark", :style => 'margin-right:10px;' %>
-    <%= link_to "Sign In", login_path, :class => "btn btn-dark", :style => 'margin-left: 10px; color: white;'%>
+    <%= submit_tag "Reset Password", :class => "btn btn-dark", :id => 'submitButton' %>
+    <%= link_to "Sign In", login_path, :class => "btn btn-dark", :id => 'buttonLink'%>
   </div>
 <% end %>
