@@ -7,10 +7,13 @@
     <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
     <title>Notices: <%= controller.action_name %></title>
     <%= stylesheet_link_tag 'application' %>
-    <%= stylesheet_link_tag 'scaffold' %>
-    <%= stylesheet_link_tag 'bootstrap' %>
+    <%= stylesheet_link_tag 'will-paginate' %>
+    <%= stylesheet_link_tag 'notice' %>
     <%= stylesheet_link_tag 'trix' %>
+    <%= stylesheet_link_tag 'bootstrap' %>
     <%= stylesheet_link_tag 'bootstrap.min' %>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <%= javascript_include_tag 'bootstrap' %>
     <%= javascript_include_tag 'bootstrap.min' %>
     <%= javascript_include_tag 'trix' %>
@@ -19,7 +22,7 @@
 
 </head>
 
-<body style="background-color: #008080;">
+<body class="main-body">
     <%= render 'layouts/nav_bar' %>
     <% if flash[:notice] %>
     <p id="notice" class="text-center notice notice-success is-dismissable fade show"><%= flash[:notice] %></p>

@@ -1,0 +1,32 @@
+<%= stylesheet_link_tag 'sessions' %>
+<% form_for :user, @users, :url => { :action => 'create' } do |form| %>
+<%= form.error_messages %>
+<h3 class="text-center">Sign Up</h3>
+<div class="form-group">
+    <%= form.label :user_name %>
+    <%= form.text_field :user_name, :id => 'name', :class => 'form-control form-control1 input1', :placeholder => 'Enter your name', 
+                        :required => true, :autofocus => true, :pattern => '/\A[^0-9`!@#\$%\^&*+_=]+\z/' %>
+    <small>Only alphabets are allowed </small>
+</div>
+<div class="form-group">
+    <%= form.label :email %>
+    <%= form.text_field :email, :id => 'email', :class => 'form-control form-control1 input1', :placeholder => 'Enter email', 
+                        :required => true, :autofocus => true, :pattern => '[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$' %>
+    <small> example@example.com</small>
+</div>
+<div class="form-group">
+    <%= form.label :password%>
+    <%= form.password_field :password, :id => 'password', :class => 'form-control form-control1 input1', :placeholder => 'Password', 
+                            :required => true%>
+</div>
+<div class="form-group">
+    <%= form.label :confirm_password%>
+    <%= form.password_field :password_confirmation, :id => 'password_confirmation', :class => 'form-control form-control1 input1',
+                            :placeholder => 'Confirm Password', :required => true%>
+</div>
+
+<div>
+    <%= form.submit 'Register', :class => 'btn btn-dark btn1' %>
+   <div class="text-center"> <small>Already have an account? <%= link_to 'Sign In', login_path%></small></div>
+</div>
+<% end %>

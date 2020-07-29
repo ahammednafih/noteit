@@ -1,0 +1,69 @@
+<%= stylesheet_link_tag 'users'%>
+<div class="container">
+  <div class="edit-user-header">
+   <% if @user.avatar? %>
+     <%= image_tag(@user.avatar.thumb.url)%>
+    <% else %>
+    <img src="/images/users/avatars/thumb_placeholder-profile-pic.png" alt="profile_image" >
+    <% end %>
+    <div class="edit-user-details">
+    <h5><%= @user.user_name %></h5>
+    <small><%= @user.email %></small>
+    </div>
+    <div class="change-profile-form">
+    <% form_for @user, :html => {:multipart => true} do |f| %>
+    
+      
+    <% end %>
+    </div>
+  </div>
+  <div class="card" id="edit-user-form">
+  <% form_for @user, :html => {:multipart => true} do |f| %>
+  <%= f.error_messages %>
+  <h3 class="text-center">Edit profile</h3>
+  <div class="form-group">
+    <%= f.label :email %>
+    <%= f.text_field :email, :class => 'form-control-plaintext', :readonly => true %>
+    </div>
+    <div class="form-group">
+    <%= f.label :user_name %>
+    <%= f.text_field :user_name, :class => 'form-control-plaintext', :readonly => true %>
+    </div>
+    <% if @user.full_name.present? %>
+    <div class="form-group">
+    <%= f.label :full_name %>
+    <%= f.text_field :full_name, :class => 'form-control-plaintext', :readonly => true %>
+    </div>
+    <% end %>
+    <div class="form-group">
+      <%= f.label 'Change Profile Picture' %>
+      <%= f.file_field :avatar, :class => 'form-control-file' %>
+      <%= f.hidden_field :avatar_cache %>
+      </div>
+      <div class="form-check">
+    <%= f.check_box :remove_avatar, :class=> 'form-check-input', :id => 'publicCheck'%>
+    <label for="user_remove_photo" class="form-check-label">Remove photo</label>
+    </div>
+    <div class="form-group">
+    <%= f.label :first_name %>
+    <%= f.text_field :first_name, :class => 'form-control form-control1 input1' %>
+    </div>
+    <div class="form-group">
+    <%= f.label :last_name %>
+    <%= f.text_field :last_name, :class => 'form-control form-control1 input1'%>
+    </div>
+    <div class="form-group">
+    <%= f.label :new_password %>
+    <%= f.password_field :password, :class => 'form-control form-control1 input1' %>
+    </div>
+    <div class="form-group">
+    <%= f.label :confirm_password %>
+    <%= f.password_field :password_confirmation, :class => 'form-control form-control1 input1' %>
+    </div>
+    <div id="button-row">
+        <%= f.submit 'Update Details', :class => 'btn btn-dark btn1', :id => 'submitButton' %>
+        <%= link_to 'Back', notices_path, :class => "btn btn-dark", :id => 'sbmitLink' %>
+    </div>
+  <% end %>
+  </div>
+</div>

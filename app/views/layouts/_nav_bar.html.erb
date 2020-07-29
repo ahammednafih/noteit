@@ -1,17 +1,37 @@
+<%=stylesheet_link_tag 'nav-bar'%>
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
     <%= link_to 'Note It', notices_path, :class => 'navbar-brand' %>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
+    
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav navbar-auto">
-            <li class="nav-item">
-                <% if logged_in? %>
-                <%= link_to 'Log out', logout_path, :class => 'nav-link fa fa-sign-out', :data => { :confirm => 'Are you sure you want to logout?' } %>
-                <% else %>
-                <%= link_to 'Login', login_path, :class => 'nav-link fa fa-sign-in' %>
-                <% end %>
+        <ul class="navbar-nav mr-auto">
+        <% if logged_in? %>
+        <li class="nav-item active">
+                <%= link_to raw('My Public Notes <span class="sr-only">(current)</span>'), my_public_notes_notices_url, 
+                            :class => 'nav-link' %>
+            </li>
+            <% end %>
+            <li class="nav-item active">
+                <%= link_to raw('Public Notes <span class="sr-only">(current)</span>'), public_notes_url, 
+                            :class => 'nav-link' %>
             </li>
         </ul>
+        <%= render 'layouts/search_form' %>
+        <div class="nav-item" id="nav-item">
+        <% if logged_in? %>
+                <% if current_user.avatar? %>
+                     <%= image_tag(current_user.avatar.thumb.url, :alt => 'profile_image')%>
+                <% else %>
+                    <img src="/images/users/avatars/thumb_placeholder-profile-pic.png" alt="profile_image" >
+                <% end %>
+                <%= link_to "#{current_user.user_name}", edit_user_path(current_user) %>
+            <%= link_to 'Log out', logout_path, :class => 'nav-link fa fa-sign-out', :data => { :confirm => 'Are you sure you want to logout?' } %>
+        <% else %>
+            <%= link_to 'Login', login_path, :class => 'nav-link fa fa-sign-in' %> 
+            <%= link_to 'Sign Up', signup_path, :class => 'nav-link fa fa-sign-in' %>
+        <% end %>
+        </div>  
     </div>
 </nav>

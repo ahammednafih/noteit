@@ -20,8 +20,8 @@ Rails::Initializer.run do |config|
     :address              => "smtp.gmail.com",
     :port                 => 587,
     :domain               => "gmail.com",
-    :user_name            => "savvymallu@gmail.com",
-    :password             => "s@vv7m@11u",
+    :user_name            => "",
+    :password             => "",
     :authentication       => "plain",
     :enable_starttls_auto => true
   }
@@ -33,6 +33,9 @@ Rails::Initializer.run do |config|
   # config.gem "hpricot", :version => '0.6', :source => "http://code.whytheluckystiff.net"
   # config.gem "sqlite3-ruby", :lib => "sqlite3"
   # config.gem "aws-s3", :lib => "aws/s3"
+  config.gem 'carrierwave', :version => '0.4.10'
+  config.gem 'rmagick', :version => '2.13.3'
+  config.gem 'will_paginate', :version => '2.3.16'
 
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named
@@ -47,7 +50,7 @@ Rails::Initializer.run do |config|
 
   # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
   # Run "rake -D time" for a list of tasks for finding time zone names.
-  config.time_zone = 'UTC'
+  config.time_zone = 'New Delhi'
 
   # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
   # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}')]

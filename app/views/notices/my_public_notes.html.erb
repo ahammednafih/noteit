@@ -1,15 +1,12 @@
-<%= stylesheet_link_tag 'notice'%>
+<%= stylesheet_link_tag 'notice' %>
 <h2 class="text-center">Notes</h2>
-<button class="new-notice btn btn-dark">
-    <%= link_to '', new_notice_path, :class => 'fa fa-plus index-link' %>
-</button>
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
         <div class="card-columns">
             <% @notices.each do |notice| %>
             <div class="card" id="card-index">
                 <div class="card-body">
-                    <h4 class="card-title text-start"><%=h notice.title %></h4>
+                    <h5 class="card-title text-start"><%=h notice.title %></h5>
                     <p class="card-text"><%= sanitize notice.content %></p>
                     <div class="text-center row" id="index-card-text-div">
 
