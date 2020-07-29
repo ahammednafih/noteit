@@ -21,8 +21,8 @@ development:
   port: 3306
   reconnect: false
   database: noteit_development
-  username: anbk
-  password: anbk27
+  username: 
+  password: 
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -34,8 +34,8 @@ test:
   port: 3306
   reconnect: false
   database: noteit_test
-  username: anbk
-  password: anbk27
+  username: 
+  password: 
 
 production:
   adapter: mysql
@@ -44,5 +44,5 @@ production:
   port: 3306
   reconnect: false
   database: noteit_production
-  username: anbk
-  password: anbk27
+  username: 
+  password: 
