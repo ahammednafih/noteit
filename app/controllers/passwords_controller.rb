@@ -10,9 +10,7 @@ class PasswordsController < ApplicationController
   def create
     user = User.find_by_email(params[:email])
     if user
-      # user.send_password_reset
       Services::UserServices.send_password_reset(user)
-      # Mailers::UserMailer.delay.deliver_forgot_password(user)# This sends an e-mail with a link for the user to reset the password
       flash[:alert] = 'E-mail sent with password reset instructions.'
       redirect_to new_session_path
     else

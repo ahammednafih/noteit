@@ -37,7 +37,6 @@ class UsersController < ApplicationController
   def confirm_email
     user = User.first(:conditions => [ "confirm_token like ?", params[:id]])
     if user
-      # user.email_activate
       Services::UserServices.email_activate(user)
       flash[:alert] = 'Welcome! Your email has been confirmed.Please sign in to continue.'
       redirect_to login_url
