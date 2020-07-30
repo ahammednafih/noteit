@@ -94,7 +94,6 @@ class NoticesController < ApplicationController
 
   def my_public_notes
     @notices = @user.notices.all(:conditions => ["public like ?", true]).paginate(:page => params[:page], :per_page => 10)
-    puts("\n==========#{@notices}===========\n")
     respond_to do |format|
       format.html # my_public_notes.html.erb
       format.xml  { render :xml => @notices }

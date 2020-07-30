@@ -16,7 +16,6 @@ class Notice < ActiveRecord::Base
   end
 
   def self.public_search(conditions)
-    # Notice.all(:conditions => ["content like ? and public like ?", "%#{conditions}%", 1])
     Notice.find_by_sql(
       "SELECT notices.title, notices.content, notices.created_at, 
       notices.public_token, users.id AS user_id, users.user_name AS user_name, 
