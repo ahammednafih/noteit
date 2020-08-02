@@ -1,12 +1,10 @@
 # frozen_string_literal: true
 require 'bcrypt'
-require 'securerandom'
 
 class User < ActiveRecord::Base
-  before_create :confirmation_token
-  before_save :full_name
+  attr_reader :password
   
-  has_many :notices
+  has_many :notes
   mount_uploader :avatar, AvatarUploader
   
   validates_presence_of :email, :user_name
@@ -18,9 +16,10 @@ class User < ActiveRecord::Base
   validates_confirmation_of :password
   validates_presence_of :password_digest
 
-  attr_reader :password
+  before_create :confirmation_token
+  before_save :full_name
 
-  def full_name                                                                                                                                                                                     
+  def full_name                                                                                                                                                                                    
     self.full_name = ([self.first_name, self.last_name] - ['']).compact.join(' ')                         
   end
 
@@ -38,11 +37,11 @@ class User < ActiveRecord::Base
        true
     end
   end
-  
+
   private
     def confirmation_token
       if self.confirm_token.blank?
-          self.confirm_token = SecureRandom.base64.gsub('/"', '_').to_s
+          self.confirm_token = Services::UserServices.generate_token
       end
     end
 end

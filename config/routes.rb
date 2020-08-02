@@ -1,17 +1,17 @@
 ActionController::Routing::Routes.draw do |map|
   # You can have the root of your site routed with map.root -- just remember to delete public/index.html.
-  map.root :controller => 'public_notes'
+  map.root :controller => 'notes', :action => 'public_notes'
   map.login '/login', :controller => 'sessions', :action => 'new'
   map.signup '/signup', :controller => 'users', :action => 'new'
   map.logout '/logout', :controller => 'sessions', :action => 'destroy'
-  map.search '/search', :controller => 'public_notes', :action => 'search'
+  map.search '/search', :controller => 'notes', :action => 'search_public_notes'
   # See how all your routes lay out with "rake routes"
   
-  map.resources :notices, :collection => { :my_public_notes => :get }, :as => 'notes'
+  map.resources :notes, :member => { :search_public_notes => :post, :show_public_note => :get }, 
+                        :collection => { :my_public_notes => :get, :public_notes => :get }
   map.resources :sessions
   map.resources :users, :member => { :confirm_email => :get }
   map.resources :passwords
-  map.resources :public_notes, :member => { :search => :post }
 
   # The priority is based upon order of creation: first created -> highest priority.
 

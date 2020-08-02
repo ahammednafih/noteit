@@ -10,12 +10,6 @@
     <h5><%= @user.user_name %></h5>
     <small><%= @user.email %></small>
     </div>
-    <div class="change-profile-form">
-    <% form_for @user, :html => {:multipart => true} do |f| %>
-    
-      
-    <% end %>
-    </div>
   </div>
   <div class="card" id="edit-user-form">
   <% form_for @user, :html => {:multipart => true} do |f| %>
@@ -62,7 +56,7 @@
     </div>
     <div id="button-row">
         <%= f.submit 'Update Details', :class => 'btn btn-dark btn1', :id => 'submitButton' %>
-        <%= link_to 'Back', notices_path, :class => "btn btn-dark", :id => 'sbmitLink' %>
+        <%= link_to 'Back', notes_path, :class => "btn btn-dark", :id => 'sbmitLink' %>
     </div>
   <% end %>
   </div>

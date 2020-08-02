@@ -1,6 +1,6 @@
 <%=stylesheet_link_tag 'nav-bar'%>
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-    <%= link_to 'Note It', notices_path, :class => 'navbar-brand' %>
+    <%= link_to 'Note It', notes_path, :class => 'navbar-brand' %>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -9,12 +9,12 @@
         <ul class="navbar-nav mr-auto">
         <% if logged_in? %>
         <li class="nav-item active">
-                <%= link_to raw('My Public Notes <span class="sr-only">(current)</span>'), my_public_notes_notices_url, 
+                <%= link_to raw('My Public Notes <span class="sr-only">(current)</span>'), my_public_notes_notes_url, 
                             :class => 'nav-link' %>
             </li>
             <% end %>
             <li class="nav-item active">
-                <%= link_to raw('Public Notes <span class="sr-only">(current)</span>'), public_notes_url, 
+                <%= link_to raw('Public Notes <span class="sr-only">(current)</span>'), public_notes_notes_url, 
                             :class => 'nav-link' %>
             </li>
         </ul>

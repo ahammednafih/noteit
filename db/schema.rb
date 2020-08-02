@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(:version => 20200724155907) do
 
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
 
-  create_table "notices", :force => true do |t|
+  create_table "notes", :force => true do |t|
     t.string   "title"
     t.text     "content"
     t.integer  "user_id"

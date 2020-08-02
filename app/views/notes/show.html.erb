@@ -1,0 +1,23 @@
+<%= stylesheet_link_tag 'note' %>
+<div class="card" id="show-card">
+    <h3 id="show-h3" >
+        <%=h @note.title %>
+    </h3>
+<div id="show-div-content">
+    <p>
+        <%= sanitize @note.content %>
+    </p>
+    <% if @note.public %>
+    <div class="text-center" id="show-div-public">
+        <b>Public URL:</b>
+        <%= show_public_note_note_url(@note.public_token) %>
+    </div>
+    <% end %>
+    </div class="row">
+    <div class="text-center" id="show-div-button-row">
+        <button class="btn btn-dark index-card-button" ><%= link_to '', edit_note_path(@note), :class =>'fa fa-pencil index-link' %> </button>
+        <button class="btn btn-dark index-card-button" > <%= link_to '', notes_path, :class =>'fa  fa-hand-o-left index-link' %></button>
+        <button class="btn btn-dark index-card-button" > <%= link_to '', @note, :confirm => 'Are you sure?', :method => :delete, 
+                                :class => 'card-link fa fa-trash-o index-link' %></button>
+    </div>
+</div>
