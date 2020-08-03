@@ -10,9 +10,12 @@ class ApplicationController < ActionController::Base
 
   # Scrub sensitive parameters from your log
   filter_parameter_logging :password
-  
+
   def current_user
-    User.first(:conditions => ["id like ?", session[:user_id]])
+    @current_user ||= User.find session[:user_id] if session[:user_id]
+    if @current_user
+      @current_user
+    end
   end
 
   def logged_in?

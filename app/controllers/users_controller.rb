@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  skip_before_filter :authorized
+  skip_before_filter :authorized, :except => [:edit, :update]
 
   # SignUp form
   def new
@@ -29,21 +29,25 @@ class UsersController < ApplicationController
 
   def update
      @user = User.find(params[:id])
-     @user.update_attributes(params[:user])
-     flash[:notice] = 'Note was successfully updated.'
-     redirect_to edit_user_url
+     if @user.update_attributes(params[:user])
+      flash[:notice] = 'User profile successfully updated.'
+      redirect_to edit_user_url
+     else
+      render :action => 'edit'
+     end
   end
 
   def confirm_email
-    user = User.first(:conditions => [ "confirm_token like ?", params[:id]])
+    user = User.first(:conditions => [ "confirm_token = ?", params[:id]])
     if user
-      Services::UserServices.email_activate(user)
+      email_confirmed = true
+      confirm_token = nil
+      user.update_attributes(:email_confirmed => email_confirmed, :confirm_token => confirm_token)
       flash[:alert] = 'Welcome! Your email has been confirmed.Please sign in to continue.'
-      redirect_to login_url
     else
       flash[:alert] = 'Sorry. User does not exist or is already confirmed. 
                        Please try to login'
-      redirect_to login_url
     end
+    redirect_to login_url
   end
 end

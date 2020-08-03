@@ -1,0 +1,31 @@
+<%= stylesheet_link_tag 'public-notes'%>
+<h2 class="text-center">Notes</h2>
+<div class="row" id="div-public-notes-index">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div class="card-columns">
+            <% @notes.each do |note| %>
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title"><%=h note.title %></h4>
+                    <p class="card-text"><%= sanitize note.content %></p>
+                    <div class="user">
+                    <% if note.avatar? %>
+                        <%= image_tag("/images/users/avatars/#{note.user_id}/thumb_#{note.avatar}")%>
+                    <% else %>
+                        <img src="/images/users/avatars/thumb_placeholder-profile-pic.png" alt="profile_image" >
+                    <% end %>
+                    <div class="user-info">
+                    <h5><%= note.user_name %> </h5>
+                    <small><%= note.created_at %></small>
+                    </div>
+                    <%=link_to '', show_public_note_note_path(note.public_token), :class => 'stretched-link' %>
+                    </div>
+                </div>
+            </div>
+            <% end %>
+        </div>
+    </div>
+</div>
+<div class="digg_pagination">
+<%= will_paginate @notes, :container => false %>
+</div>

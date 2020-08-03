@@ -1,0 +1,6 @@
+<%= stylesheet_link_tag 'note' %>
+<h2 class="text-center">New note</h2>
+<button class="new-notice btn btn-dark">
+    <%= link_to '', notes_path, :class => 'fa fa-hand-o-left index-link' %>
+</button>
+<%= render :partial => "form" %>

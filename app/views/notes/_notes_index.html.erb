@@ -1,0 +1,26 @@
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div class="card-columns">
+            <% @notes.each do |note| %>
+            <div class="card" id="card-index">
+                <div class="card-body">
+                    <h4 class="card-title text-start"><%=h note.title %></h4>
+                    <p class="card-text"><%= sanitize note.content %></p>
+                    <div class="text-center row" id="index-card-text-div">
+
+                        <button class="btn btn-dark index-card-button"><%= link_to '', note, :class => 'card-link fa fa-eye index-link' %> </button>
+                        <button class="btn btn-dark index-card-button"> <%= link_to '', edit_note_path(note), :class => 'card-link fa fa-pencil index-link'%></button>
+                        <button class="btn btn-dark index-card-button"> <%= link_to '', note, :confirm => 'Are you sure?', :method => :delete, 
+                                :class => 'card-link fa fa-trash-o index-link' %></button>
+
+                    </div>
+                </div>
+            </div>
+
+            <% end %>
+        </div>
+    </div>
+</div>
+<div class="digg_pagination">
+<%= will_paginate @notes, :container => false %>
+</div>
