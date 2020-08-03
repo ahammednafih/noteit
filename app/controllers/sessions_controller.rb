@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
   skip_before_filter :authorized, :only => [:new, :create]
-  before_filter :check_login, :only =>[:new]
+  before_filter :redirection_check, :only =>[:new]
 
   def new; end
 
@@ -37,7 +37,7 @@ class SessionsController < ApplicationController
     redirect_to path
   end
 
-  def check_login
+  def redirection_check
     redirect_to notes_path if logged_in?
   end
 end
