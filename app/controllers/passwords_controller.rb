@@ -13,8 +13,7 @@ class PasswordsController < ApplicationController
 
   def create
     user = User.find_by_email(params[:email])
-    if user
-      user.set_reset_token
+    if user && user.set_reset_token
       flash[:alert] = 'E-mail sent with password reset instructions.'
     else
       flash[:alert] = 'No user found with that email. Please try again'

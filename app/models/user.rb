@@ -18,11 +18,11 @@ class User < ActiveRecord::Base
 
   before_create :set_confirmation_token
   before_save :set_full_name
-  after_update :send_reset_token_email, :if => :reset_password_token_changed?
-  after_create :send_confirmation_token_email
+  after_update :send_reset_token, :if => :reset_password_token_changed?
+  after_create :send_confirmation_token
 
   def set_full_name                                                                                                                                                                                    
-    self.full_name = ([self.first_name, self.last_name] - ['']).compact.join(' ')
+    self.full_name = "#{self.first_name} #{self.last_name}"
   end
 
   def password=(plaintxt_pass)
@@ -35,7 +35,7 @@ class User < ActiveRecord::Base
   end
 
   def authenticate(plaintxt_pass)
-    if BCrypt::Password.new(self.password_digest) == plaintxt_pass && self.email_confirmed
+    if (BCrypt::Password.new(self.password_digest) == plaintxt_pass) && (self.email_confirmed)
        true
     end
   end
@@ -53,16 +53,16 @@ class User < ActiveRecord::Base
   end
   private
     def set_confirmation_token
-      if self.confirm_token.blank?
+      unless self.confirm_token.present?
           self.confirm_token = Services::UserServices.generate_token
       end
     end
 
-    def send_reset_token_email
+    def send_reset_token
       Mailers::UserMailer.delay.deliver_forgot_password(self)
     end
 
-    def send_confirmation_token_email
+    def send_confirmation_token
       Mailers::UserMailer.delay.deliver_registration_confirmation(self)
     end
 end

@@ -38,8 +38,7 @@ class UsersController < ApplicationController
 
   def confirm_email
     user = User.first(:conditions => [ "confirm_token = ?", params[:id]])
-    if user
-      user.set_email_confirmed
+    if user && user.set_email_confirmed
       flash[:alert] = 'Welcome! Your email has been confirmed.Please sign in to continue.'
     else
       flash[:alert] = 'Sorry. User does not exist or is already confirmed. 
