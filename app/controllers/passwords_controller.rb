@@ -14,13 +14,8 @@ class PasswordsController < ApplicationController
   def create
     user = User.find_by_email(params[:email])
     if user
-      reset_password_token = Services::UserServices.generate_token
-      reset_password_sent_at = Time.zone.now
-      if user.update_attributes(:reset_password_token => reset_password_token,
-                             :reset_password_sent_at => reset_password_sent_at)
-        Mailers::UserMailer.delay.deliver_forgot_password(user)
-        flash[:alert] = 'E-mail sent with password reset instructions.'
-      end
+      user.set_reset_token
+      flash[:alert] = 'E-mail sent with password reset instructions.'
     else
       flash[:alert] = 'No user found with that email. Please try again'
     end
