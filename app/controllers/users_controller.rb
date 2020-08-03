@@ -19,7 +19,6 @@ class UsersController < ApplicationController
                      :password_confirmation => params[:user][:password_confirmation]
                     )
     if @user.save
-      Mailers::UserMailer.delay.deliver_registration_confirmation(@user)
       flash[:alert] = "Please confirm your email address to continue"
       redirect_to login_url
     else
@@ -39,10 +38,7 @@ class UsersController < ApplicationController
 
   def confirm_email
     user = User.first(:conditions => [ "confirm_token = ?", params[:id]])
-    if user
-      email_confirmed = true
-      confirm_token = nil
-      user.update_attributes(:email_confirmed => email_confirmed, :confirm_token => confirm_token)
+    if user && user.set_email_confirmed
       flash[:alert] = 'Welcome! Your email has been confirmed.Please sign in to continue.'
     else
       flash[:alert] = 'Sorry. User does not exist or is already confirmed. 

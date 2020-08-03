@@ -1,9 +1,8 @@
 class NotesController < ApplicationController
-  whitelist_methods = [:public_notes, :show_public_note, :search_public_notes]
-  before_filter :check_user, :except => whitelist_methods
-  skip_before_filter :authorized, :only => whitelist_methods
+  
+  skip_before_filter :authorized, :only => [:public_notes, :show_public_note, :search_public_notes]
   def index
-    @notes = @user.notes.paginate(:page => params[:page], :per_page => 10)
+    @notes = @current_user.notes.paginate(:page => params[:page], :per_page => 10)
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @notes }
@@ -11,7 +10,7 @@ class NotesController < ApplicationController
   end
 
   def show
-    @note = @user.notes.find(params[:id])
+    @note = @current_user.notes.find(params[:id])
     if @note
       respond_to do |format|
         format.html # show.html.erb
@@ -25,7 +24,7 @@ class NotesController < ApplicationController
   end
 
   def new
-    @note = @user.notes.new
+    @note = @current_user.notes.build
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @note }
@@ -33,11 +32,11 @@ class NotesController < ApplicationController
   end
 
   def edit
-    @note = @user.notes.find(params[:id])
+    @note = @current_user.notes.find(params[:id])
   end
 
   def create
-    @note = @user.notes.new(params[:note])
+    @note = @current_user.notes.new(params[:note])
     @note.user_id = session[:user_id]
     respond_to do |format|
       if @note.save
@@ -54,7 +53,7 @@ class NotesController < ApplicationController
   end
 
   def update
-    @note = @user.notes.find(params[:id])
+    @note = @current_user.notes.find(params[:id])
     respond_to do |format|
       if @note.update_attributes(params[:note])
         flash[:notice] = 'Note was successfully updated.'
@@ -69,7 +68,7 @@ class NotesController < ApplicationController
   end
 
   def destroy
-    @note = @user.notes.find(params[:id])
+    @note = @current_user.notes.find(params[:id])
     @note.destroy
     respond_to do |format|
       format.html { redirect_to(notes_url) }
@@ -78,7 +77,7 @@ class NotesController < ApplicationController
   end
 
   def my_public_notes
-    @notes = @user.notes.is_public.paginate(:page => params[:page], :per_page => 10)
+    @notes = @current_user.notes.is_public.paginate(:page => params[:page], :per_page => 10)
     respond_to do |format|
       format.html # my_public_notes.html.erb
       format.xml  { render :xml => @notes }
@@ -106,10 +105,5 @@ class NotesController < ApplicationController
     @notes = Note.public_search(params[:content]).paginate(:page => params[:page], :per_page => 10)
     flash[:alert] = 'No notes found' unless @notes.present?
     render 'public_notes'
-  end
-
-  private
-  def check_user
-    @user = User.find(session[:user_id])
   end
 end

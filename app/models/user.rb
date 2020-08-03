@@ -16,11 +16,13 @@ class User < ActiveRecord::Base
   validates_confirmation_of :password
   validates_presence_of :password_digest
 
-  before_create :confirmation_token
-  before_save :full_name
+  before_create :set_confirmation_token
+  before_save :set_full_name
+  after_update :send_reset_token, :if => :reset_password_token_changed?
+  after_create :send_confirmation_token
 
-  def full_name                                                                                                                                                                                    
-    self.full_name = ([self.first_name, self.last_name] - ['']).compact.join(' ')                         
+  def set_full_name                                                                                                                                                                                    
+    self.full_name = "#{self.first_name} #{self.last_name}"
   end
 
   def password=(plaintxt_pass)
@@ -33,15 +35,34 @@ class User < ActiveRecord::Base
   end
 
   def authenticate(plaintxt_pass)
-    if BCrypt::Password.new(self.password_digest) == plaintxt_pass
+    if (BCrypt::Password.new(self.password_digest) == plaintxt_pass) && (self.email_confirmed)
        true
     end
   end
 
+  def set_reset_token
+    reset_password_token = Services::UserServices.generate_token
+    reset_password_sent_at = Time.now.utc
+    self.update_attributes(:reset_password_token => reset_password_token, :reset_password_sent_at => reset_password_sent_at)
+  end
+
+  def set_email_confirmed
+    email_confirmed = true
+    confirm_token = nil
+    self.update_attributes(:email_confirmed => email_confirmed, :confirm_token => confirm_token)
+  end
   private
-    def confirmation_token
-      if self.confirm_token.blank?
+    def set_confirmation_token
+      unless self.confirm_token.present?
           self.confirm_token = Services::UserServices.generate_token
       end
+    end
+
+    def send_reset_token
+      Mailers::UserMailer.delay.deliver_forgot_password(self)
+    end
+
+    def send_confirmation_token
+      Mailers::UserMailer.delay.deliver_registration_confirmation(self)
     end
 end
