@@ -85,7 +85,7 @@ class NotesController < ApplicationController
   end
 
   def public_notes
-    @notes = Note.public_notes.paginate(:page => params[:page], :per_page => 1)
+    @notes = Note.public_notes.paginate(:page => params[:page], :per_page => 10)
   end
 
   def show_public_note
@@ -102,7 +102,7 @@ class NotesController < ApplicationController
   end
 
   def search_public_notes
-    @notes = Note.public_search(params[:content]).paginate(:page => params[:page], :per_page => 1)
+    @notes = Note.public_search(params[:content]).paginate(:page => params[:page], :per_page => 10)
     flash[:alert] = 'No notes found' unless @notes.present?
     render 'public_notes'
   end
