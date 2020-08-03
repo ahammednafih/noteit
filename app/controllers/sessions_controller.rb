@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
   skip_before_filter :authorized, :only => [:new, :create]
-  after_filter :redirect_if_login, :only =>[:new]
+  before_filter :check_login, :only =>[:new]
 
   def new; end
 
@@ -18,7 +18,7 @@ class SessionsController < ApplicationController
         end
         update_last_login(@user, redirect_path, alert)
     else
-      flash.now[:alert] = 'Username or password is invalid. Make sure you have confirmed registration before loggin in.'
+      flash.now[:alert] = 'Username or password is invalid. Make sure you have confirmed registration before logging in.'
       render :action => 'new'
     end
   end
@@ -37,7 +37,7 @@ class SessionsController < ApplicationController
     redirect_to path
   end
 
-  def redirect_if_login
+  def check_login
     redirect_to notes_path if logged_in?
   end
 end
