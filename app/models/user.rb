@@ -16,9 +16,10 @@ class User < ActiveRecord::Base
   validates_confirmation_of :password
   validates_presence_of :password_digest
 
-  before_create :set_confirmation_token, :send_confirmation_token_email
+  before_create :set_confirmation_token
   before_save :set_full_name
-  before_update :send_reset_token_email, :if => :reset_password_token_changed?
+  after_update :send_reset_token_email, :if => :reset_password_token_changed?
+  after_create :send_confirmation_token_email
 
   def set_full_name                                                                                                                                                                                    
     self.full_name = ([self.first_name, self.last_name] - ['']).compact.join(' ')
