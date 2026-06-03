@@ -1,19 +1,24 @@
-# Note It
+# README
 
-A simple note taking app using Rails and twitter bootstrap. Db used is mariaDB 10.1
+This README would normally document whatever steps are necessary to get the
+application up and running.
 
-## Setup
+Things you may want to cover:
 
-Ruby version : `1.8.7p-374`
+* Ruby version
 
-Rails : `2.3.5`
+* System dependencies
 
-delayed_job 2.0.4 as plugin: `script/plugin install git://github.com/collectiveidea/delayed_job.git -r v2.0`
- 
-`script/generate delayed_job`
+* Configuration
 
-`rake db:create`
+* Database creation
 
-`rake db:migrate`
+* Database initialization
 
-Start delayed_job: `script/delayed_job start`
+* How to run the test suite
+
+* Services (job queues, cache servers, search engines, etc.)
+
+* Deployment instructions
+
+* ...

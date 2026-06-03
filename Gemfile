@@ -27,6 +27,9 @@ gem "devise"
 # Use Pagy for pagination
 gem "pagy", "~> 9.0"
 
+# Use FriendlyId for slugs
+gem "friendly_id", "~> 5.5.0"
+
 # Use Sidekiq for background jobs
 gem "sidekiq"
 

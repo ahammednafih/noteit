@@ -1,0 +1,32 @@
+# Ignore bundler config.
+/.bundle
+
+# Ignore the default SQLite database.
+/db/*.sqlite3
+/db/*.sqlite3-journal
+/db/*.sqlite3-[0-9]*
+
+# Ignore all logfiles and tempfiles.
+/log/*
+/tmp/*
+!/log/.keep
+!/tmp/.keep
+
+# Ignore public/assets and public/packs in production
+/public/assets
+/public/packs
+/public/packs-test
+/node_modules
+/yarn-error.log
+
+# Ignore master key for decrypting credentials and more.
+/config/master.key
+/config/credentials/production.key
+
+# Ignore custom storage paths
+/storage/*
+!/storage/.keep
+/tmp/storage
+
+# Ignore system-specific files
+.DS_Store
