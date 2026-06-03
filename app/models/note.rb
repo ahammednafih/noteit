@@ -8,7 +8,6 @@ class Note < ApplicationRecord
 
   scope :is_public, -> { where(public: true) }
 
-  before_create :generate_uuid_v7
   before_save :generate_public_token
 
   def self.public_notes
@@ -22,10 +21,6 @@ class Note < ApplicationRecord
   end
 
   private
-
-  def generate_uuid_v7
-    self.id ||= SecureRandom.respond_to?(:uuid_v7) ? SecureRandom.uuid_v7 : SecureRandom.uuid
-  end
 
   def generate_public_token
     if public && public_token.blank?

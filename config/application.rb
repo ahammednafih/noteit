@@ -14,6 +14,11 @@ module Noteit
     # Configure Sidekiq as Active Job queue adapter
     config.active_job.queue_adapter = :sidekiq
 
+    # Configure generators to use uuid as primary key by default
+    config.generators do |g|
+      g.orm :active_record, primary_key_type: :uuid
+    end
+
     # Please, add to the `ignore` list any other `lib` subdirectories that do
     # not contain `.rb` files, or that should not be reloaded or eager loaded.
     # Common ones are `templates`, `generators`, or `middleware`, for example.
