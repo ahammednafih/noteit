@@ -1,26 +1,69 @@
-<div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-        <div class="card-columns">
-            <% @notes.each do |note| %>
-            <div class="card" id="card-index">
-                <div class="card-body">
-                    <h4 class="card-title text-start"><%=h note.title %></h4>
-                    <p class="card-text"><%= sanitize note.content %></p>
-                    <div class="text-center row" id="index-card-text-div">
-
-                        <button class="btn btn-dark index-card-button"><%= link_to '', note, :class => 'card-link fa fa-eye index-link' %> </button>
-                        <button class="btn btn-dark index-card-button"> <%= link_to '', edit_note_path(note), :class => 'card-link fa fa-pencil index-link'%></button>
-                        <button class="btn btn-dark index-card-button"> <%= link_to '', note, :confirm => 'Are you sure?', :method => :delete, 
-                                :class => 'card-link fa fa-trash-o index-link' %></button>
-
-                    </div>
-                </div>
-            </div>
-
-            <% end %>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+  <% @notes.each do |note| %>
+    <div class="bg-slate-900 border border-slate-800 hover:border-slate-700 rounded-xl p-6 flex flex-col justify-between shadow-lg hover:shadow-xl transition-all duration-200 group">
+      <div>
+        <!-- Card Header -->
+        <div class="flex items-start justify-between gap-2 mb-3">
+          <h3 class="text-lg font-bold text-slate-100 group-hover:text-emerald-400 transition line-clamp-1"><%= note.title %></h3>
+          <% if note.public? %>
+            <span class="bg-emerald-950/80 border border-emerald-800 text-emerald-400 text-xs px-2 py-0.5 rounded-full font-medium">Public</span>
+          <% else %>
+            <span class="bg-slate-800 border border-slate-700 text-slate-400 text-xs px-2 py-0.5 rounded-full font-medium">Private</span>
+          <% end %>
         </div>
+
+        <!-- Card Body -->
+        <div class="text-sm text-slate-300 line-clamp-4 mb-4 prose prose-invert max-w-none">
+          <%= sanitize note.content %>
+        </div>
+      </div>
+
+      <!-- Card Footer -->
+      <div class="pt-4 border-t border-slate-800/80 flex items-center justify-between">
+        <div class="text-xs text-slate-500">
+          <%= note.created_at.strftime("%b %d, %Y") %>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <!-- Copy Link (for public notes) -->
+          <% if note.public? %>
+            <div data-controller="clipboard" class="relative">
+              <input data-clipboard-target="source" type="hidden" value="<%= show_public_note_note_url(note.public_token) %>">
+              <button data-action="click->clipboard#copy" data-clipboard-target="button" class="bg-slate-800 hover:bg-slate-700 text-slate-300 p-2 rounded-lg text-xs font-medium transition cursor-pointer flex items-center gap-1" title="Copy shareable link">
+                <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8.684 10.742l4.639-2.32m0 0a3 3 0 11.266-1.503l-4.639 2.32m0 0a3 3 0 11-.266 1.503m0 0l4.639 2.32m-.385 1.145a3 3 0 11-.267-1.503l4.639-2.32" />
+                </svg>
+              </button>
+            </div>
+          <% end %>
+
+          <!-- Actions -->
+          <%= link_to note_path(note), class: "bg-slate-800 hover:bg-slate-700 text-slate-300 p-2 rounded-lg transition", title: "View Note" do %>
+            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+            </svg>
+          <% end %>
+
+          <%= link_to edit_note_path(note), class: "bg-slate-800 hover:bg-slate-700 text-slate-300 p-2 rounded-lg transition", title: "Edit Note" do %>
+            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+            </svg>
+          <% end %>
+
+          <%= button_to note_path(note), method: :delete, data: { turbo_confirm: 'Are you sure you want to delete this note?' }, class: "bg-slate-800 hover:bg-rose-950/50 hover:text-rose-400 text-slate-400 p-2 rounded-lg transition cursor-pointer", title: "Delete Note" do %>
+            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+            </svg>
+          <% end %>
+        </div>
+      </div>
     </div>
+  <% end %>
 </div>
-<div class="digg_pagination">
-<%= will_paginate @notes, :container => false %>
-</div>
+
+<% if @pagy.pages > 1 %>
+  <div class="flex justify-center mt-8">
+    <%= raw pagy_nav(@pagy) %>
+  </div>
+<% end %>

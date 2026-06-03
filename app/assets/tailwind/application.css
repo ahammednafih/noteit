@@ -1,0 +1,45 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Pagy Custom Pagination Styles */
+.pagy-nav, .pagy-nav-js {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.25rem;
+  margin-top: 2rem;
+}
+
+.pagy-nav a, .pagy-nav span, .pagy-nav-js a, .pagy-nav-js span {
+  padding: 0.5rem 1rem;
+  background-color: var(--color-slate-900);
+  border: 1px solid var(--color-slate-800);
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--color-slate-300);
+  text-decoration: none;
+  transition: all 150ms ease-in-out;
+}
+
+.pagy-nav a:hover, .pagy-nav-js a:hover {
+  background-color: var(--color-slate-800);
+  color: var(--color-white);
+  border-color: var(--color-slate-700);
+}
+
+.pagy-nav .active, .pagy-nav-js .active {
+  background-color: var(--color-emerald-600);
+  border-color: var(--color-emerald-600);
+  color: var(--color-white);
+  font-weight: 600;
+}
+
+.pagy-nav .disabled, .pagy-nav-js .disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+

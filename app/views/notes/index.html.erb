@@ -1,6 +1,36 @@
-<%= stylesheet_link_tag 'note'%>
-<h2 class="text-center">Notes</h2>
-<button class="new-notice btn btn-dark">
-    <%= link_to '', new_note_path, :class => 'fa fa-plus index-link' %>
-</button>
-<%= render 'notes_index', :notes => @notes %>
+<% content_for :title, "My Notes - NoteIt" %>
+
+<div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
+  <div>
+    <h1 class="text-3xl font-extrabold text-slate-100 tracking-tight">My Notes</h1>
+    <p class="text-slate-400 mt-1 text-sm">Manage, edit, and share your personal notes.</p>
+  </div>
+  
+  <div>
+    <%= link_to new_note_path, class: "inline-flex items-center justify-center bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-4 py-2.5 rounded-lg text-sm transition duration-150 shadow-lg shadow-emerald-950/20" do %>
+      <svg class="h-5 w-5 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+      </svg>
+      Create Note
+    <% end %>
+  </div>
+</div>
+
+<% if @notes.present? %>
+  <%= render 'notes_index' %>
+<% else %>
+  <div class="text-center py-20 bg-slate-900 border border-slate-800 rounded-xl max-w-xl mx-auto px-6">
+    <div class="w-16 h-16 bg-slate-800 rounded-full flex items-center justify-center mx-auto mb-4">
+      <svg class="h-8 w-8 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+      </svg>
+    </div>
+    <h3 class="text-lg font-bold text-slate-200">No notes found</h3>
+    <p class="text-slate-400 mt-1 text-sm max-w-sm mx-auto">Get started by creating your very first note today!</p>
+    <div class="mt-6">
+      <%= link_to new_note_path, class: "inline-flex items-center justify-center bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-4 py-2.5 rounded-lg text-sm transition" do %>
+        Create Note
+      <% end %>
+    </div>
+  </div>
+<% end %>

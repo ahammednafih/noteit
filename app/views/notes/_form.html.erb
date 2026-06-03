@@ -1,27 +1,54 @@
-<div class="card" id="card1">
-<% form_for(@note) do |f| %>
-<%= f.error_messages %>
+<div class="bg-slate-900 border border-slate-800 rounded-xl p-6 shadow-xl max-w-3xl mx-auto">
+  <%= form_with(model: @note, local: true, class: "space-y-6") do |f| %>
+    
+    <% if @note.errors.any? %>
+      <div class="p-4 bg-rose-950/50 border border-rose-800 text-rose-300 rounded-lg text-sm">
+        <h4 class="font-bold mb-1"><%= pluralize(@note.errors.count, "error") %> prohibited this note from being saved:</h4>
+        <ul class="list-disc pl-5 space-y-1">
+          <% @note.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
 
-<div class="form-group">
-    <%= f.label :title%>
-    <%= f.text_field :title, :class => 'form-control', :placeholder => 'Title', :required => true %>
+    <!-- Title field -->
+    <div class="space-y-2">
+      <%= f.label :title, class: "block text-sm font-semibold text-slate-300" %>
+      <%= f.text_field :title, class: "bg-slate-800 border border-slate-700 text-slate-100 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block w-full p-3 transition", placeholder: "Enter note title...", required: true %>
+    </div>
+
+    <!-- Content field (Trix editor) -->
+    <div class="space-y-2">
+      <%= f.label :content, class: "block text-sm font-semibold text-slate-300" %>
+      <%= f.hidden_field :content, id: 'note_content_hidden' %>
+      <div class="prose prose-invert max-w-none">
+        <trix-editor input="note_content_hidden" class="trix-content bg-slate-800 border border-slate-700 text-slate-100 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block w-full p-3 min-h-[250px] focus:outline-none transition"></trix-editor>
+      </div>
+    </div>
+
+    <!-- Public toggle switch -->
+    <div class="flex items-center justify-between p-4 bg-slate-800/40 rounded-lg border border-slate-800">
+      <div class="flex flex-col">
+        <span class="text-sm font-semibold text-slate-200">Public Note</span>
+        <span class="text-xs text-slate-400">Make this note visible to everyone via public URL and search.</span>
+      </div>
+      <label class="relative inline-flex items-center cursor-pointer">
+        <%= f.check_box :public, class: "sr-only peer" %>
+        <div class="w-11 h-6 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-slate-300 after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-600"></div>
+      </label>
+    </div>
+
+    <!-- Action buttons -->
+    <div class="flex items-center justify-end gap-3 pt-4 border-t border-slate-800">
+      <%= link_to 'Cancel', notes_path, class: "text-slate-400 hover:text-white px-4 py-2.5 rounded-lg text-sm font-medium transition" %>
+      <%= f.submit 'Save Note', class: "text-white bg-emerald-600 hover:bg-emerald-700 font-medium rounded-lg text-sm px-6 py-2.5 transition duration-150 cursor-pointer shadow-lg shadow-emerald-950/20" %>
+    </div>
+  <% end %>
 </div>
-<div class="form-group">
-    <%= f.label :content %>
-    <%= f.hidden_field :content, :cols => '80', :rows => '20', :id => 'content1', :class => 'form-control', :placeholder => 'Note', :required => true %>
-    <trix-editor input="content1"></trix-editor>
-</div>
-<div class="form-check">
-    <%= f.check_box :public, :class=> 'form-check-input', :id => 'publicCheck'%>
-    <label class="form-check-label" for="publicCheck">Make this public</label>
-</div>
-<div class="text-center actions">
-    <%= f.submit 'Save', :class => 'btn btn-dark'%>
-</div>
-<% end %>
-</div>
+
 <script type="text/javascript">
-    document.addEventListener("trix-file-accept", event => {
-        event.preventDefault()
-    })
+  document.addEventListener("trix-file-accept", event => {
+    event.preventDefault() // Disable file uploads in Trix for simplicity
+  })
 </script>
