@@ -1,0 +1,29 @@
+#!/usr/bin/env sh
+
+if ! gem list foreman -i --silent; then
+  echo "Installing foreman..."
+  gem install foreman
+fi
+
+# Parse options to find custom port
+PORT_VAL=""
+prev=""
+for arg in "$@"; do
+  if [ "$prev" = "-p" ] || [ "$prev" = "--port" ]; then
+    PORT_VAL="$arg"
+  fi
+  prev="$arg"
+done
+
+if [ -n "$PORT_VAL" ]; then
+  export PORT="$PORT_VAL"
+else
+  export PORT="${PORT:-3000}"
+fi
+
+# Let the debug gem allow remote connections,
+# but avoid loading until `debugger` is called
+export RUBY_DEBUG_OPEN="true"
+export RUBY_DEBUG_LAZY="true"
+
+exec foreman start -f Procfile.dev "$@"
