@@ -1,0 +1,15 @@
+<%= stylesheet_link_tag 'sessions' %>
+<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+  <%= render "devise/shared/error_messages", resource: resource %>
+
+  <h3 class="text-center">Reset Password</h3>
+  <div class='form-group'>
+    <%= f.label :email %>
+    <%= f.email_field :email, :class => 'form-control form-control1 input1', :placeholder => 'Enter email', 
+                       :required => true, :autofocus => true %>
+  </div>
+  <div id="button-row" class="mt-3">
+    <%= f.submit "Reset Password", :class => "btn btn-dark", :id => 'submitButton' %>
+    <%= link_to "Sign In", new_user_session_path, :class => "btn btn-dark", :id => 'buttonLink' %>
+  </div>
+<% end %>

@@ -1,8 +1,6 @@
-<% content_for :title, "New Note - NoteIt" %>
-
-<div class="max-w-3xl mx-auto mb-6">
-  <h1 class="text-2xl font-bold bg-gradient-to-r from-emerald-400 to-teal-500 bg-clip-text text-transparent">Create a New Note</h1>
-  <p class="text-sm text-slate-400 mt-1">Capture your thoughts, code snippets, or draft shared documents.</p>
-</div>
-
-<%= render 'form' %>
+<%= stylesheet_link_tag 'note' %>
+<h2 class="text-center">New note</h2>
+<button class="new-notice btn btn-dark">
+    <%= link_to '', notes_path, :class => 'fa fa-hand-o-left index-link', title: 'Back' %>
+</button>
+<%= render :partial => "form" %>

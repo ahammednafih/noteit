@@ -77,11 +77,19 @@ class NotesController < ApplicationController
   end
 
   def show_public_note
-    @note = Note.find_by!(public_token: params[:id])
-    respond_to do |format|
-      format.html # show_public_note.html.erb
-      format.json { render json: @note }
+    @note = Note.friendly.find(params[:id])
+    if @note.public?
+      respond_to do |format|
+        format.html # show_public_note.html.erb
+        format.json { render json: @note }
+      end
+    else
+      flash[:alert] = 'No notes found'
+      redirect_to public_notes_notes_url, status: :not_found
     end
+  rescue ActiveRecord::RecordNotFound
+    flash[:alert] = 'No notes found'
+    redirect_to public_notes_notes_url, status: :not_found
   end
 
   def search_public_notes

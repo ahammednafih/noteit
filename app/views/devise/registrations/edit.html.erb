@@ -1,0 +1,78 @@
+<%= stylesheet_link_tag 'users' %>
+<div class="container">
+  <div class="edit-user-header">
+    <% if current_user.avatar.attached? %>
+      <%= image_tag current_user.avatar.representation(resize_to_limit: [100, 100]), alt: 'profile_image' %>
+    <% else %>
+      <img src="/images/users/avatars/thumb_placeholder-profile-pic.png" alt="profile_image" >
+    <% end %>
+    <div class="edit-user-details">
+      <h5><%= current_user.user_name %></h5>
+      <small><%= current_user.email %></small>
+    </div>
+  </div>
+  <div class="card" id="edit-user-form">
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, multipart: true }) do |f| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
+
+    <h3 class="text-center">Edit profile</h3>
+    
+    <div class="form-group">
+      <%= f.label :email %>
+      <%= f.text_field :email, :class => 'form-control-plaintext', :readonly => true %>
+    </div>
+    
+    <div class="form-group">
+      <%= f.label :user_name %>
+      <%= f.text_field :user_name, :class => 'form-control-plaintext', :readonly => true %>
+    </div>
+    
+    <% if current_user.full_name.present? %>
+      <div class="form-group">
+        <%= f.label :full_name %>
+        <%= f.text_field :full_name, :class => 'form-control-plaintext', :readonly => true %>
+      </div>
+    <% end %>
+    
+    <div class="form-group">
+      <%= f.label 'Change Profile Picture' %>
+      <%= f.file_field :avatar, :class => 'form-control-file' %>
+    </div>
+    
+    <div class="form-check mb-3">
+      <%= f.check_box :remove_avatar, :class=> 'form-check-input', :id => 'removeAvatarCheck' %>
+      <label for="removeAvatarCheck" class="form-check-label">Remove photo</label>
+    </div>
+    
+    <div class="form-group">
+      <%= f.label :first_name %>
+      <%= f.text_field :first_name, :class => 'form-control form-control1 input1' %>
+    </div>
+    
+    <div class="form-group">
+      <%= f.label :last_name %>
+      <%= f.text_field :last_name, :class => 'form-control form-control1 input1' %>
+    </div>
+    
+    <div class="form-group">
+      <%= f.label :new_password %> <small>(leave blank if you don't want to change it)</small>
+      <%= f.password_field :password, :class => 'form-control form-control1 input1', autocomplete: "new-password" %>
+    </div>
+    
+    <div class="form-group">
+      <%= f.label :confirm_password %>
+      <%= f.password_field :password_confirmation, :class => 'form-control form-control1 input1', autocomplete: "new-password" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :current_password %> <small>(we need your current password to confirm your changes)</small>
+      <%= f.password_field :current_password, :class => 'form-control form-control1 input1', required: true, autocomplete: "current-password" %>
+    </div>
+
+    <div id="button-row">
+        <%= f.submit 'Update Details', :class => 'btn btn-dark btn1', :id => 'submitButton' %>
+        <%= link_to 'Back', notes_path, :class => "btn btn-dark", :id => 'sbmitLink' %>
+    </div>
+  <% end %>
+  </div>
+</div>

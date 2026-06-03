@@ -18,8 +18,8 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should show public note via token without login" do
-    get show_public_note_note_url(@public_note.public_token)
+  test "should show public note via slug without login" do
+    get show_public_note_note_url(@public_note)
     assert_response :success
     assert_match @public_note.title, response.body
   end

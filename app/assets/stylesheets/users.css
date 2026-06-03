@@ -1,0 +1,87 @@
+.container {
+  width: fit-content;
+}
+
+#card1 {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 20px rgba(0, 0, 0,0.1);
+  overflow: hidden;
+}
+
+.edit-user-header {
+  display: flex;
+  margin-top: auto;
+  align-items: center;
+  border-radius: 10px;
+  box-shadow: 0 0 10px;
+  padding: 10px;
+  margin: 10px;
+  background-color: #fff;
+}
+
+.edit-user-header img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50px;
+  margin-right: 10px;
+}
+
+.edit-user-details h5 {
+  margin: 0;
+}
+
+.edit-user-details small {
+  color: #ccc;
+}
+
+#edit-user-form {
+  margin:10px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px;
+}
+
+
+#edit-user-form form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 40px;    
+}
+
+.form-control1 {
+  margin: 10px 0;
+  width: 100%;
+}
+
+.form-group {
+  margin: 10px;
+}
+
+label {
+  display: inline-block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.input1 {
+  background-color: transparent;
+  border: 2px solid #ecf2ff;
+  border-radius: 3px;
+  font-size: 14px;
+  padding: 10px;
+  width: 100%;
+}
+#button-row {
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
+}
+
+#submitButton {
+  margin-right:10px;
+}
+
+#buttonLink {
+  margin-left: 10px; color: white;
+}
