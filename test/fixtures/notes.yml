@@ -1,9 +1,12 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
 one:
-  title: MyString
-  content: MyText
+  title: Johns Private Note
+  content: This is a private note.
+  user: one
+  public: false
 
 two:
-  title: MyString
-  content: MyText
+  title: Johns Public Note
+  content: This is a public note.
+  user: one
+  public: true
+  public_token: <%= SecureRandom.hex(16) %>
