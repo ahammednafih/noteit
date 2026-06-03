@@ -1,25 +1,14 @@
-# Filters added to this controller apply to all controllers in the application.
-# Likewise, all the methods added will be available for all controllers.
-
 class ApplicationController < ActionController::Base
-  before_filter :authorized
-  helper_method :logged_in?
-  helper_method :current_user
-  helper :all # include all helpers, all the time
-  protect_from_forgery # See ActionController::RequestForgeryProtection for details
+  # Only allow modern browsers supporting webp images, web push, badges, import maps, CSS nesting, and CSS :has.
+  allow_browser versions: :modern
 
-  # Scrub sensitive parameters from your log
-  filter_parameter_logging :password
+  before_action :authenticate_user!
+  before_action :configure_permitted_parameters, if: :devise_controller?
 
-  def current_user
-    @current_user ||= User.find session[:user_id] if session[:user_id]
-  end
+  protected
 
-  def logged_in?
-    current_user.present?
-  end
-
-  def authorized
-    redirect_to '/login' unless logged_in?
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:user_name, :first_name, :last_name, :avatar])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:user_name, :first_name, :last_name, :avatar])
   end
 end

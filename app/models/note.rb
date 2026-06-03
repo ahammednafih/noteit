@@ -1,29 +1,35 @@
-class Note < ActiveRecord::Base
+class Note < ApplicationRecord
+  extend FriendlyId
+  friendly_id :title, use: :slugged
+
   belongs_to :user
 
-  named_scope :is_public, lambda { { :conditions => 'public  = true' } }
+  validates :title, :content, presence: true
 
-  validates_presence_of :title, :content
+  scope :is_public, -> { where(public: true) }
 
+  before_create :generate_uuid_v7
   before_save :generate_public_token
 
   def self.public_notes
-    Note.is_public.all :joins => :user,
-                       :select => 'title, content, notes.created_at, public_token, user_id,
-                                   users.user_name AS user_name, users.avatar AS avatar'
+    is_public.joins(:user).select(
+      'notes.*, users.user_name AS user_name'
+    ).order(created_at: :desc)
   end
 
-  def self.public_search(conditions)
-    Note.is_public.all :joins => :user,
-                       :select => 'title, content, notes.created_at, public_token, user_id,
-                                   users.user_name AS user_name, users.avatar AS avatar',
-                       :conditions => ["content like ?", "%#{conditions}%"] 
+  def self.public_search(query)
+    public_notes.where('content ILIKE ?', "%#{query}%")
   end
 
   private
-    def generate_public_token
-      if self.public
-        self.public_token = Services::UserServices.generate_token
-      end
+
+  def generate_uuid_v7
+    self.id ||= SecureRandom.respond_to?(:uuid_v7) ? SecureRandom.uuid_v7 : SecureRandom.uuid
+  end
+
+  def generate_public_token
+    if public && public_token.blank?
+      self.public_token = SecureRandom.hex(16)
     end
+  end
 end
