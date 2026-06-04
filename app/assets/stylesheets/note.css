@@ -91,3 +91,35 @@ a.index-link, button .index-link {
 .public-button-link {
     margin: 20px 10px 0px; padding: 10px;
 }
+
+/* Custom Uniform Note Action Buttons */
+.note-actions-row {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+.note-actions-row form.button_to {
+    margin: 0 !important;
+    display: inline-block;
+}
+
+.note-action-btn {
+    width: 38px !important;
+    height: 38px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0 !important;
+    border-radius: 4px !important;
+    margin: 0 !important;
+    border: none !important;
+}
+
+.note-action-btn i {
+    color: white !important;
+    font-size: 16px !important;
+}
+

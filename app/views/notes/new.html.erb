@@ -1,4 +1,4 @@
 <%= stylesheet_link_tag 'note' %>
 <h2 class="text-center">New note</h2>
-<%= link_to '', notes_path, class: 'new-notice btn btn-dark fa fa-hand-o-left index-link', title: 'Back' %>
+<%= link_to raw('<i class="fa fa-hand-o-left"></i>'), notes_path, class: 'new-notice btn btn-dark', title: 'Back' %>
 <%= render :partial => "form" %>

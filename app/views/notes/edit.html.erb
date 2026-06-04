@@ -1,5 +1,5 @@
 <%= stylesheet_link_tag 'note' %>
 <h2 class="text-center">Editing note</h2>
-<%= link_to '', @note, class: 'new-notice btn btn-dark fa fa-eye index-link', title: 'View' %>
-<%= link_to '', notes_path, class: 'new-notice btn btn-dark fa fa-hand-o-left index-link', title: 'Back' %>
+<%= link_to raw('<i class="fa fa-eye"></i>'), @note, class: 'new-notice btn btn-dark', title: 'View' %>
+<%= link_to raw('<i class="fa fa-hand-o-left"></i>'), notes_path, class: 'new-notice btn btn-dark', title: 'Back' %>
 <%= render :partial => "form" %>

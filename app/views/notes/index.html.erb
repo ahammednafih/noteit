@@ -1,4 +1,4 @@
 <%= stylesheet_link_tag 'note' %>
 <h2 class="text-center">Notes</h2>
-<%= link_to '', new_note_path, class: 'new-notice btn btn-dark fa fa-plus index-link', title: 'New Note' %>
+<%= link_to raw('<i class="fa fa-plus"></i>'), new_note_path, class: 'new-notice btn btn-dark', title: 'New Note' %>
 <%= render 'notes_index', :notes => @notes %>

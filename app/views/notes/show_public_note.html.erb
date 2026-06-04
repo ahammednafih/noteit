@@ -8,7 +8,7 @@
             <%= sanitize @note.content %>
         </p>
     </div>
-    <div class="text-center" id="show-div-button-row" style="padding-bottom: 20px;">
-        <%= link_to '', public_notes_notes_path, class: 'btn btn-dark index-card-button fa fa-hand-o-left index-link', title: 'Back to Public Notes' %>
+    <div class="note-actions-row" style="padding-bottom: 20px;">
+        <%= link_to raw('<i class="fa fa-hand-o-left"></i>'), public_notes_notes_path, class: 'btn btn-dark note-action-btn', title: 'Back to Public Notes' %>
     </div>
 </div>
