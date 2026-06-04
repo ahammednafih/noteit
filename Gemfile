@@ -28,7 +28,7 @@ gem "devise"
 gem "pagy", "~> 9.0"
 
 # Use FriendlyId for slugs
-gem "friendly_id", "~> 5.5.0"
+gem "friendly_id", "~> 5.7.0"
 
 # Use Solid Queue for background jobs
 gem "solid_queue"
