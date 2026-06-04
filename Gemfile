@@ -25,7 +25,7 @@ gem "bcrypt", "~> 3.1.7"
 gem "devise"
 
 # Use Pagy for pagination
-gem "pagy", "~> 9.0"
+gem "pagy", "~> 43.5"
 
 # Use FriendlyId for slugs
 gem "friendly_id", "~> 5.5.0"
