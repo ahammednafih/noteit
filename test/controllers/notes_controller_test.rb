@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class NotesControllerTest < ActionDispatch::IntegrationTest
   setup do
@@ -43,16 +43,16 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
   test "should search public notes via turbo frame without login" do
     get search_public_notes_notes_url, headers: { "Turbo-Frame" => "search_results" }, params: { content: @public_note.title }
     assert_response :success
-    assert_select 'turbo-frame#search_results'
-    assert_select 'a[href=?]', show_public_note_note_path(@public_note), text: /#{@public_note.title}/
+    assert_select "turbo-frame#search_results"
+    assert_select "a[href=?]", show_public_note_note_path(@public_note), text: /#{@public_note.title}/
   end
 
   test "should search public and private notes via turbo frame when authenticated" do
     sign_in @user
     get search_public_notes_notes_url, headers: { "Turbo-Frame" => "search_results" }, params: { content: @note.title }
     assert_response :success
-    assert_select 'turbo-frame#search_results'
-    assert_select 'a[href=?]', note_path(@note), text: /#{@note.title}/
+    assert_select "turbo-frame#search_results"
+    assert_select "a[href=?]", note_path(@note), text: /#{@note.title}/
   end
 
   # Authenticated access tests
@@ -70,8 +70,8 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create note when authenticated" do
     sign_in @user
-    assert_difference('Note.count') do
-      post notes_url, params: { note: { title: 'New Note', content: 'Some body content', public: false } }
+    assert_difference("Note.count") do
+      post notes_url, params: { note: { title: "New Note", content: "Some body content", public: false } }
     end
     new_note = Note.order(:created_at).last
     assert_redirected_to note_url(new_note)
@@ -91,15 +91,15 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
 
   test "should update note when authenticated" do
     sign_in @user
-    patch note_url(@note), params: { note: { title: 'Updated Title' } }
+    patch note_url(@note), params: { note: { title: "Updated Title" } }
     @note.reload
     assert_redirected_to note_url(@note)
-    assert_equal 'Updated Title', @note.title
+    assert_equal "Updated Title", @note.title
   end
 
   test "should destroy note when authenticated" do
     sign_in @user
-    assert_difference('Note.count', -1) do
+    assert_difference("Note.count", -1) do
       delete note_url(@note)
     end
     assert_redirected_to notes_url

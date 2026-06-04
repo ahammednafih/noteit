@@ -5,7 +5,7 @@ class UserMailer < ActionMailer::Base
         from          "Note It Admin"
         subject       "Please complete the registration"
         sent_on       Time.now
-        body          :user => user
+        body          user: user
     end
 
     def forgot_password(user)
@@ -13,7 +13,7 @@ class UserMailer < ActionMailer::Base
         from          "Note It Admin"
         subject       "Reset password"
         sent_on       Time.now
-        body          :user => user
+        body          user: user
     end
 end
 end

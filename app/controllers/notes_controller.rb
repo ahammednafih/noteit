@@ -1,5 +1,5 @@
 class NotesController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:root, :public_notes, :show_public_note, :search_public_notes]
+  skip_before_action :authenticate_user!, only: [ :root, :public_notes, :show_public_note, :search_public_notes ]
 
   def root
     if user_signed_in?
@@ -41,7 +41,7 @@ class NotesController < ApplicationController
     @note = current_user.notes.build(note_params)
     respond_to do |format|
       if @note.save
-        format.html { redirect_to @note, notice: 'Note was successfully created.' }
+        format.html { redirect_to @note, notice: "Note was successfully created." }
         format.json { render json: @note, status: :created, location: @note }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -54,7 +54,7 @@ class NotesController < ApplicationController
     @note = current_user.notes.friendly.find(params[:id])
     respond_to do |format|
       if @note.update(note_params)
-        format.html { redirect_to @note, notice: 'Note was successfully updated.' }
+        format.html { redirect_to @note, notice: "Note was successfully updated." }
         format.json { render json: @note, status: :ok }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -67,7 +67,7 @@ class NotesController < ApplicationController
     @note = current_user.notes.friendly.find(params[:id])
     @note.destroy
     respond_to do |format|
-      format.html { redirect_to notes_url, notice: 'Note was successfully deleted.' }
+      format.html { redirect_to notes_url, notice: "Note was successfully deleted." }
       format.json { head :no_content }
     end
   end
@@ -92,24 +92,24 @@ class NotesController < ApplicationController
         format.json { render json: @note }
       end
     else
-      flash[:alert] = 'No notes found'
+      flash[:alert] = "No notes found"
       redirect_to public_notes_notes_url, status: :not_found
     end
   rescue ActiveRecord::RecordNotFound
-    flash[:alert] = 'No notes found'
+    flash[:alert] = "No notes found"
     redirect_to public_notes_notes_url, status: :not_found
   end
 
   def search_public_notes
     query = params[:content]
- 
+
     if turbo_frame_request?
       if query.present?
         @notes = Note.autocomplete_search(query, current_user).limit(10)
       else
         @notes = Note.public_notes.limit(10)
       end
-      render partial: 'search_suggestions', locals: { notes: @notes }
+      render partial: "search_suggestions", locals: { notes: @notes }
     else
       if query.present?
         @notes_scope = Note.public_search(query)
@@ -117,8 +117,8 @@ class NotesController < ApplicationController
         @notes_scope = Note.public_notes
       end
       @pagy, @notes = pagy(@notes_scope, limit: 10)
-      flash.now[:alert] = 'No notes found' unless @notes.present?
-      render 'public_notes'
+      flash.now[:alert] = "No notes found" unless @notes.present?
+      render "public_notes"
     end
   end
 

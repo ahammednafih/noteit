@@ -12,7 +12,7 @@ class User < ApplicationRecord
   before_save :purge_avatar_if_requested, :set_full_name
 
   def purge_avatar_if_requested
-    avatar.purge if remove_avatar == '1'
+    avatar.purge if remove_avatar == "1"
   end
 
   validates :user_name, presence: true, uniqueness: { case_sensitive: false }

@@ -4,7 +4,7 @@ class Note < ApplicationRecord
 
   include PgSearch::Model
   pg_search_scope :search_by_title_and_content,
-                  against: [:title, :content],
+                  against: [ :title, :content ],
                   using: {
                     tsearch: { prefix: true }
                   }
@@ -19,7 +19,7 @@ class Note < ApplicationRecord
 
   def self.public_notes
     is_public.joins(:user).select(
-      'notes.*, users.user_name AS user_name'
+      "notes.*, users.user_name AS user_name"
     ).order(created_at: :desc)
   end
 
@@ -31,7 +31,7 @@ class Note < ApplicationRecord
     wildcard = "%#{query}%"
     scope = if user
       joins(:user)
-        .select('notes.*, users.user_name AS user_name')
+        .select("notes.*, users.user_name AS user_name")
         .where("notes.public = ? OR notes.user_id = ?", true, user.id)
     else
       public_notes
