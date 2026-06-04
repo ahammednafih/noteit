@@ -21,6 +21,9 @@ fi
 export RUBY_DEBUG_OPEN="true"
 export RUBY_DEBUG_LAZY="true"
 
+# Disable GSSAPI encryption/negotiation to prevent macOS Kerberos Reachability bundle segfaults under Ruby 4.x
+export PGGSSENCMODE="disable"
+
 if command -v overmind >/dev/null 2>&1; then
   exec overmind start -f Procfile.dev "$@"
 else
