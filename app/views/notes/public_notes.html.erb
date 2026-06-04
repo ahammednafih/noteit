@@ -10,7 +10,7 @@
                     <p class="card-text"><%= sanitize note.content %></p>
                     <div class="user">
                     <% if note.user.avatar.attached? %>
-                        <%= image_tag note.user.avatar.representation(resize_to_limit: [30, 30]), alt: 'profile_image' %>
+                        <%= image_tag note.user.avatar.representation(resize_to_limit: [160, 160]), alt: 'profile_image' %>
                     <% else %>
                         <img src="/images/users/avatars/thumb_placeholder-profile-pic.png" alt="profile_image" >
                     <% end %>
