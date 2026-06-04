@@ -19,16 +19,16 @@ gem "tailwindcss-rails"
 gem "jbuilder"
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
-gem "bcrypt", "~> 3.1.7"
+gem "bcrypt", "~> 3.1.22"
 
 # Use Devise for authentication
 gem "devise"
 
 # Use Pagy for pagination
-gem "pagy", "~> 9.0"
+gem "pagy", "~> 43.5"
 
 # Use FriendlyId for slugs
-gem "friendly_id", "~> 5.5.0"
+gem "friendly_id", "~> 5.7.0"
 
 # Use Solid Queue for background jobs
 gem "solid_queue"
@@ -46,7 +46,7 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem "bootsnap", require: false
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
-gem "image_processing", "~> 1.2"
+gem "image_processing", "~> 2.0.2"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
