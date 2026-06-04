@@ -7,12 +7,8 @@
                     <h4 class="card-title text-start"><%= note.title %></h4>
                     <p class="card-text"><%= sanitize note.content %></p>
                     <div class="text-center row" id="index-card-text-div">
-                        <button class="btn btn-dark index-card-button">
-                            <%= link_to '', note, :class => 'card-link fa fa-eye index-link', title: 'View Note' %>
-                        </button>
-                        <button class="btn btn-dark index-card-button">
-                            <%= link_to '', edit_note_path(note), :class => 'card-link fa fa-pencil index-link', title: 'Edit Note' %>
-                        </button>
+                        <%= link_to '', note, class: 'btn btn-dark index-card-button card-link fa fa-eye index-link', title: 'View Note' %>
+                        <%= link_to '', edit_note_path(note), class: 'btn btn-dark index-card-button card-link fa fa-pencil index-link', title: 'Edit Note' %>
                         <div class="button_to-container" style="display: inline-block;">
                             <%= button_to '', note, method: :delete, data: { turbo_confirm: 'Are you sure?' }, class: 'btn btn-dark index-card-button card-link fa fa-trash-o index-link', style: 'border: none; background: transparent; padding: 0;', title: 'Delete Note' %>
                         </div>

@@ -29,8 +29,8 @@
     margin: 10px; padding: 20px;
  }
 
-button .index-link {
-    color: white;
+a.index-link, button .index-link {
+    color: white !important;
 }
 
 #index-card-title {
