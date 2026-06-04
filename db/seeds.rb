@@ -9,9 +9,9 @@ user1 = User.create!(
   user_name: "johndoe",
   first_name: "John",
   last_name: "Doe",
-  email: "john@example.com",
-  password: "password123",
-  password_confirmation: "password123"
+  email: "demo@example.com",
+  password: "password",
+  password_confirmation: "password"
 )
 user1.confirm # Devise confirmable helper
 puts "Created User: #{user1.user_name} (#{user1.email})"
