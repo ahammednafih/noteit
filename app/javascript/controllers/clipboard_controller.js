@@ -21,7 +21,7 @@ export default class extends Controller {
     const button = this.buttonTarget
     const originalText = button.innerHTML
 
-    button.innerHTML = '<i class="fa fa-check"></i>'
+    button.innerHTML = "<i class=\"fa fa-check\"></i>"
     button.classList.add("btn-success")
     button.classList.remove("btn-dark")
 
