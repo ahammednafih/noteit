@@ -17,8 +17,7 @@
   </div>
   <div class="form-group">
       <%= f.label :content %>
-      <%= f.hidden_field :content, :id => 'content1', :class => 'form-control', :placeholder => 'Note', :required => true %>
-      <trix-editor input="content1" class="trix-content"></trix-editor>
+      <lexxy-editor name="note[content]" value="<%= f.object.content %>" placeholder="Note" required="required"></lexxy-editor>
   </div>
   <div class="form-check mb-3">
       <%= f.check_box :public, :class=> 'form-check-input', :id => 'publicCheck' %>

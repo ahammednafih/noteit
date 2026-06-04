@@ -30,8 +30,14 @@ gem "pagy", "~> 9.0"
 # Use FriendlyId for slugs
 gem "friendly_id", "~> 5.5.0"
 
-# Use Sidekiq for background jobs
-gem "sidekiq"
+# Use Solid Queue for background jobs
+gem "solid_queue"
+
+# Use PgSearch for PostgreSQL-native full-text search
+gem "pg_search"
+
+# Use Lexxy for rich text editing
+gem "lexxy"
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ windows jruby ]
