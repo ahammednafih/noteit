@@ -5,11 +5,13 @@ export default class extends Controller {
 
   connect() {
     this.timeout = null
+    this.blurTimeout = null
     this.selectedIndex = -1
   }
 
   disconnect() {
     clearTimeout(this.timeout)
+    clearTimeout(this.blurTimeout)
   }
 
   onInput() {
@@ -39,8 +41,11 @@ export default class extends Controller {
   }
 
   onBlur(event) {
+    if (event.relatedTarget && this.element.contains(event.relatedTarget)) {
+      return
+    }
     // Delay hiding to allow item clicks to process
-    setTimeout(() => {
+    this.blurTimeout = setTimeout(() => {
       this.closeDropdown()
     }, 200)
   }
@@ -71,7 +76,6 @@ export default class extends Controller {
     items.forEach((item, index) => {
       if (index === this.selectedIndex) {
         item.classList.add("active")
-        item.focus()
       } else {
         item.classList.remove("active")
       }

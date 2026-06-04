@@ -11035,10 +11035,12 @@ var search_controller_default = class extends Controller {
   static targets = ["input", "dropdown"];
   connect() {
     this.timeout = null;
+    this.blurTimeout = null;
     this.selectedIndex = -1;
   }
   disconnect() {
     clearTimeout(this.timeout);
+    clearTimeout(this.blurTimeout);
   }
   onInput() {
     clearTimeout(this.timeout);
@@ -11062,7 +11064,10 @@ var search_controller_default = class extends Controller {
     }
   }
   onBlur(event) {
-    setTimeout(() => {
+    if (event.relatedTarget && this.element.contains(event.relatedTarget)) {
+      return;
+    }
+    this.blurTimeout = setTimeout(() => {
       this.closeDropdown();
     }, 200);
   }
@@ -11090,7 +11095,6 @@ var search_controller_default = class extends Controller {
     items.forEach((item, index) => {
       if (index === this.selectedIndex) {
         item.classList.add("active");
-        item.focus();
       } else {
         item.classList.remove("active");
       }
