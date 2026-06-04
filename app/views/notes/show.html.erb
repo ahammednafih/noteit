@@ -11,8 +11,8 @@
         <div class="text-center my-3" id="show-div-public" data-controller="clipboard">
             <b>Public URL:</b>
             <input data-clipboard-target="source" type="text" readonly value="<%= show_public_note_note_url(@note) %>" class="form-control d-inline-block w-50 mx-2 text-center" style="background-color: #fff; cursor: text; vertical-align: middle;">
-            <button data-action="click->clipboard#copy" data-clipboard-target="button" class="btn btn-dark" style="vertical-align: middle;">
-              Copy Link
+            <button data-action="click->clipboard#copy" data-clipboard-target="button" class="btn btn-dark" style="vertical-align: middle;" title="Copy shareable link">
+              <i class="fa fa-share-alt"></i>
             </button>
         </div>
         <% end %>
