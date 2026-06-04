@@ -11,8 +11,9 @@ module Noteit
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 8.0
 
-    # Configure Sidekiq as Active Job queue adapter
-    config.active_job.queue_adapter = :sidekiq
+    # Configure Solid Queue as Active Job queue adapter
+    config.active_job.queue_adapter = :solid_queue
+    config.solid_queue.connects_to = { database: { writing: :queue } }
 
     # Configure generators to use uuid as primary key by default
     config.generators do |g|
