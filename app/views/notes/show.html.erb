@@ -21,7 +21,7 @@
         <%= link_to '', edit_note_path(@note), class: 'btn btn-dark index-card-button fa fa-pencil index-link', title: 'Edit Note' %>
         <%= link_to '', notes_path, class: 'btn btn-dark index-card-button fa fa-hand-o-left index-link', title: 'Back to Notes' %>
         <div class="button_to-container" style="display: inline-block;">
-            <%= button_to '', @note, method: :delete, data: { turbo_confirm: 'Are you sure?' }, class: 'btn btn-dark index-card-button card-link fa fa-trash-o index-link', style: 'border: none; background: transparent; padding: 0;', title: 'Delete Note' %>
+            <%= button_to '', @note, method: :delete, data: { turbo_confirm: 'Are you sure you want to delete this note?' }, class: 'btn btn-dark index-card-button card-link fa fa-trash-o index-link', title: 'Delete Note' %>
         </div>
     </div>
 </div>

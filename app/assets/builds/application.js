@@ -7618,7 +7618,7 @@ function morphBodyElements(currentBody, newBody) {
 function morphTurboFrameElements(currentFrame, newFrame) {
   MorphingFrameRenderer.renderElement(currentFrame, newFrame);
 }
-var Turbo = /* @__PURE__ */ Object.freeze({
+var Turbo2 = /* @__PURE__ */ Object.freeze({
   __proto__: null,
   PageRenderer,
   PageSnapshot,
@@ -8363,7 +8363,7 @@ if (customElements.get("turbo-stream-source") === void 0) {
     element = element.parentElement;
   }
 })();
-window.Turbo = { ...Turbo, StreamActions };
+window.Turbo = { ...Turbo2, StreamActions };
 start();
 
 // node_modules/@hotwired/turbo-rails/app/javascript/turbo/cable.js
@@ -52106,6 +52106,34 @@ function defineElements() {
 }
 var configure = Lexxy.configure;
 setTimeout(defineElements, 0);
+
+// app/javascript/application.js
+Turbo.setConfirmMethod((message, element) => {
+  const modal = document.getElementById("turbo-confirm-modal");
+  if (!modal) {
+    return confirm(message);
+  }
+  const messageEl = document.getElementById("turbo-confirm-message");
+  if (messageEl) {
+    messageEl.textContent = message;
+  }
+  const confirmBtn = document.getElementById("turbo-confirm-button");
+  window.$(modal).modal("show");
+  return new Promise((resolve) => {
+    let confirmed = false;
+    const handleConfirm = () => {
+      confirmed = true;
+      window.$(modal).modal("hide");
+    };
+    const handleHide = () => {
+      resolve(confirmed);
+      confirmBtn.removeEventListener("click", handleConfirm);
+      window.$(modal).off("hidden.bs.modal", handleHide);
+    };
+    confirmBtn.addEventListener("click", handleConfirm);
+    window.$(modal).on("hidden.bs.modal", handleHide);
+  });
+});
 /*! Bundled license information:
 
 prismjs/prism.js:
