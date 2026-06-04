@@ -96,6 +96,9 @@ jobs:
       - name: Run tests
         env:
           RAILS_ENV: test
+          DATABASE_USERNAME: postgres
+          DATABASE_PASSWORD: postgres
+          DATABASE_HOST: localhost
           PGHOST: localhost
           PGUSER: postgres
           PGPASSWORD: postgres
