@@ -1,4 +1,10 @@
-<%= form_with url: search_public_notes_notes_path, method: :get, local: true, class: "form-inline my-2 my-lg-0" do |f| %>
-    <%= f.text_field :content, value: params[:content], class: "form-control mr-sm-2", placeholder: "Search", 'aria-label' => "Search" %>
+<%= form_with url: search_public_notes_notes_path, method: :get, local: true, class: "form-inline my-2 my-lg-0 position-relative", data: { controller: "search", action: "submit->search#submit" } do |f| %>
+    <%= f.text_field :content, value: params[:content], class: "form-control mr-sm-2", placeholder: "Search", 'aria-label' => "Search", autocomplete: "off", data: { search_target: "input", action: "input->search#onInput focus->search#onFocus blur->search#onBlur keydown->search#onKeydown" } %>
     <%= f.submit 'Search', class: "btn btn-outline-success my-2 my-sm-0" %>
+    
+    <!-- Autocomplete dropdown -->
+    <div data-search-target="dropdown" class="dropdown-menu shadow position-absolute" style="display: none; max-height: 300px; overflow-y: auto; z-index: 1050; top: 100%; left: 0; min-width: 220px; margin-top: 2px; border-radius: 8px; border: 1px solid #e2e8f0; background-color: #fff;">
+        <turbo-frame id="search_results" target="_top">
+        </turbo-frame>
+    </div>
 <% end %>

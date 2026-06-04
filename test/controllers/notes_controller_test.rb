@@ -29,6 +29,13 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "should search public notes via turbo frame without login" do
+    get search_public_notes_notes_url, headers: { "Turbo-Frame" => "search_results" }, params: { content: @public_note.title }
+    assert_response :success
+    assert_select 'turbo-frame#search_results'
+    assert_select 'a[href=?]', show_public_note_note_path(@public_note), text: /#{@public_note.title}/
+  end
+
   # Authenticated access tests
   test "should get index when authenticated" do
     sign_in @user

@@ -93,9 +93,21 @@ class NotesController < ApplicationController
   end
 
   def search_public_notes
-    @pagy, @notes = pagy(Note.public_search(params[:content]), limit: 10)
-    flash.now[:alert] = 'No notes found' unless @notes.present?
-    render 'public_notes'
+    query = params[:content]
+    if query.present?
+      @notes_scope = Note.public_search(query)
+    else
+      @notes_scope = Note.public_notes
+    end
+
+    if turbo_frame_request?
+      @notes = @notes_scope.limit(10)
+      render partial: 'search_suggestions', locals: { notes: @notes }
+    else
+      @pagy, @notes = pagy(@notes_scope, limit: 10)
+      flash.now[:alert] = 'No notes found' unless @notes.present?
+      render 'public_notes'
+    end
   end
 
   private

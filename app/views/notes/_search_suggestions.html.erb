@@ -1,0 +1,11 @@
+<turbo-frame id="search_results" target="_top">
+  <% notes.each do |note| %>
+    <%= link_to show_public_note_note_path(note), class: "dropdown-item py-2 px-3 text-truncate d-block", style: "color: #333;" do %>
+      <i class="fa fa-file-text-o mr-2 text-muted"></i>
+      <%= note.title %>
+    <% end %>
+  <% end %>
+  <% if notes.empty? %>
+    <div class="dropdown-item disabled text-muted text-center py-2">No notes found</div>
+  <% end %>
+</turbo-frame>
