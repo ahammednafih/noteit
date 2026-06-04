@@ -6,7 +6,7 @@ Noteit is a secure, modern collaborative note-taking application built on Ruby o
 
 - **Framework**: Ruby on Rails 8.x
 - **Runtime Manager**: [Mise](https://mise.jdx.dev/) (defined in `mise.toml`)
-  - **Ruby**: 4.0.4
+  - **Ruby**: 4.0.5
   - **Node.js**: 20.9.0
 - **Database**: PostgreSQL (split into `primary` and `queue` databases)
 - **Background Jobs**: [Solid Queue](https://github.com/rails/solid_queue) (native DB-backed queue adapter)
