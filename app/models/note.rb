@@ -2,6 +2,13 @@ class Note < ApplicationRecord
   extend FriendlyId
   friendly_id :title, use: :slugged
 
+  include PgSearch::Model
+  pg_search_scope :search_by_title_and_content,
+                  against: [:title, :content],
+                  using: {
+                    tsearch: { prefix: true }
+                  }
+
   belongs_to :user
 
   validates :title, :content, presence: true
@@ -17,7 +24,7 @@ class Note < ApplicationRecord
   end
 
   def self.public_search(query)
-    public_notes.where('content ILIKE ?', "%#{query}%")
+    public_notes.search_by_title_and_content(query)
   end
 
   private
