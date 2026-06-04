@@ -16,5 +16,5 @@ Rails.application.routes.draw do
   end
 
   # Defines the root path route ("/")
-  root "notes#public_notes"
+  root "notes#root"
 end

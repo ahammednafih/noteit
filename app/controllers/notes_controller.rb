@@ -1,5 +1,13 @@
 class NotesController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:public_notes, :show_public_note, :search_public_notes]
+  skip_before_action :authenticate_user!, only: [:root, :public_notes, :show_public_note, :search_public_notes]
+
+  def root
+    if user_signed_in?
+      redirect_to notes_path
+    else
+      redirect_to public_notes_notes_path
+    end
+  end
 
   def index
     @pagy, @notes = pagy(current_user.notes.order(created_at: :desc), limit: 10)

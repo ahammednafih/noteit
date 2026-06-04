@@ -18,6 +18,17 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "should redirect root to public notes when unauthenticated" do
+    get root_url
+    assert_redirected_to public_notes_notes_url
+  end
+
+  test "should redirect root to dashboard when authenticated" do
+    sign_in @user
+    get root_url
+    assert_redirected_to notes_url
+  end
+
   test "should show public note via slug without login" do
     get show_public_note_note_url(@public_note)
     assert_response :success
