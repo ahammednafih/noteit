@@ -27,6 +27,18 @@ class Note < ApplicationRecord
     public_notes.search_by_title_and_content(query)
   end
 
+  def self.autocomplete_search(query, user = nil)
+    wildcard = "%#{query}%"
+    scope = if user
+      joins(:user)
+        .select('notes.*, users.user_name AS user_name')
+        .where("notes.public = ? OR notes.user_id = ?", true, user.id)
+    else
+      public_notes
+    end
+    scope.where("notes.title ILIKE ? OR notes.content ILIKE ?", wildcard, wildcard)
+  end
+
   private
 
   def generate_public_token
